@@ -1,7 +1,5 @@
 import pymysql
-import glob
 import time
-from _mysql import IntegrityError
 
 maxTries = 3
 
