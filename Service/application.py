@@ -9,7 +9,7 @@ from Condition import Condition
 from asn1crypto.x509 import TeletexPersonalName
 from SqlHelper import getSqlConnection
 
-from ListStudios import ListStudios
+#from ListStudios import ListStudios
 
 application = app = Flask(__name__)
 api = Api(app)
@@ -201,7 +201,7 @@ def personObjToJson(person):
         'screenWriter': person[5]
         }
 
-api.add_resource(ListStudios, '/studios')
+#api.add_resource(ListStudios, '/studios')
 api.add_resource(GetMovie, '/movie')
 api.add_resource(GetPerson, '/person')
 api.add_resource(TopMoviesByBoxOffice, '/topMoviesByBoxOffice')

@@ -1,7 +1,6 @@
 import csv
 import requests
 import datetime
-import Common
 from pathlib import Path
 from bs4 import BeautifulSoup
 
