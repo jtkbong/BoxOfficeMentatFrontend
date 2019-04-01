@@ -43,4 +43,5 @@ def run():
     print('Finished scraping data from boxofficemojo.com.')
 
 
-run()
+if __name__ == '__main__':
+    run()
