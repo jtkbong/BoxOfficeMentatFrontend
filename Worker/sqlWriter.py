@@ -3,6 +3,7 @@ import time
 
 maxTries = 3
 
+
 def writeRowsToDatabaseWithRetries(tableName, columnNames, rows):
     connection = getSqlConnection()
     cursor = connection.cursor()   
@@ -15,7 +16,7 @@ def writeRowsToDatabaseWithRetries(tableName, columnNames, rows):
                 success = True
             except pymysql.err.IntegrityError:
                 print("Integrity Error")
-                errors = open(Common.getDataDir() + '/writeErrors.txt', 'a')
+                errors = open('/writeErrors.txt', 'a')
                 errors.write('Integrity Error: %s, %s, %s\n' % (tableName, columnNames, ','.join(rows)))
                 break
             except pymysql.err.OperationalError:
@@ -24,15 +25,18 @@ def writeRowsToDatabaseWithRetries(tableName, columnNames, rows):
                 numTries += 1
                 continue
         if numTries == maxTries and not success:
-            errors = open(Common.getDataDir() + '/writeErrors.txt', 'a')
+            errors = open('/writeErrors.txt', 'a')
             errors.write('Max Tries Reached: %s, %s, %s\n' % (tableName, columnNames, ','.join(rows)))
     connection.commit()
     connection.close()
 
+
 def writeRowToDatabase(cursor, tableName, columnNames, row):
-    command = 'INSERT INTO boxofficementat.' + tableName + '(' + ','.join(columnNames) + ') VALUES (' + ','.join(['%s'] * len(columnNames)) + ')' 
+    command = 'INSERT INTO boxofficementat.' + tableName + '(' + ','.join(columnNames) + \
+              ') VALUES (' + ','.join(['%s'] * len(columnNames)) + ')'
     cursor.execute(command, (row.split('\t')))
-    
+
+
 def clearDatabase(tableName):
     connection = getSqlConnection()
     cursor = connection.cursor()   
@@ -40,7 +44,9 @@ def clearDatabase(tableName):
     cursor.execute(command)
     connection.commit()
     connection.close()
-    
+
+
 def getSqlConnection():
-    connection = pymysql.connect(host='boxofficementat.cwokc1guxfkk.us-west-2.rds.amazonaws.com',user='jtkbong',password='$andr0ckGundam')
+    connection = pymysql.connect(host='boxofficementat.cwokc1guxfkk.us-west-2.rds.amazonaws.com',
+                                 user='jtkbong',password='$andr0ckGundam')
     return connection

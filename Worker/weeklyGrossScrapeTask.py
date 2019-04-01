@@ -1,10 +1,10 @@
-from scrapeTask import scrapeTask
+from scrapeTask import ScrapeTask
 from scrapeUtil import scrapeElements, scrapeTableRows, markDataFileAsDone, isDataFileComplete
 from parsingUtil import *
-import sqlWriter
 import csv
 
-class weeklyGrossScrapeTask(scrapeTask):
+
+class WeeklyGrossScrapeTask(ScrapeTask):
     
     def scrape(self):
         url = 'https://www.boxofficemojo.com/weekly/chart/'
@@ -38,4 +38,3 @@ class weeklyGrossScrapeTask(scrapeTask):
         markDataFileAsDone(writer)
         self.files.append(fileName)
         self.scrapeSuccess = True
-        

@@ -1,6 +1,8 @@
 from scrapeTask import scrapeTask
 
-class boxOfficeScrapeTask(scrapeTask):
-    
+
+class BoxOfficeScrapeTask(scrapeTask):
+
+
     def scrape(self):
         print("box office")

@@ -1,8 +1,9 @@
-from abc import ABC, abstractclassmethod, abstractmethod
+from abc import ABC, abstractmethod
 from sqlWriter import writeRowsToDatabaseWithRetries, clearDatabase
 import os
 
-class scrapeTask(ABC):
+
+class ScrapeTask(ABC):
     
     def __init__(self, t, c, e):
         self.tableName = t

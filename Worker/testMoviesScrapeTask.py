@@ -1,9 +1,8 @@
-from scrapeTask import scrapeTask
-import scrapeUtil
-import sqlWriter
+from scrapeTask import ScrapeTask
 import csv
 
-class testMoviesScrapeTask(scrapeTask):
+
+class TestMoviesScrapeTask(ScrapeTask):
     
     def scrape(self):
         columnNames = ["Id", "Name", "Studio", "DomesticGross"]
@@ -21,4 +20,3 @@ class testMoviesScrapeTask(scrapeTask):
         writer.writerows(rows)
         
         self.files.append('WarnerBros.tsv')
-        

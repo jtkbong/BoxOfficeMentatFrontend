@@ -1,13 +1,8 @@
-from scrapeTask import scrapeTask
-import scrapeUtil
-import sqlWriter
-from scrapeUtil import scrapeTable, scrapeTables, scrapeTableRows, markDataFileAsDone, isDataFileComplete
-import datetime
-from dataCache import setList, getList
-import csv
+from scrapeTask import ScrapeTask
 
-class creditsScrapeTask(scrapeTask):
-    
+
+class CreditsScrapeTask(scrapeTask):
+
     def scrape(self):
         studios = self.getStudiosList()
         for studio in studios:
