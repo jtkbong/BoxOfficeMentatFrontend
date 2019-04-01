@@ -1,5 +1,5 @@
 from scrapetask import ScrapeTask
-from scrapeUtil import scrapeList, scrapeTableRows, markDataFileAsDone, isDataFileComplete
+from scrapeutil import *
 import csv
 
 
@@ -17,7 +17,7 @@ class PeopleScrapeTask(ScrapeTask):
         writer = csv.writer(outfile, delimiter='\t')
         for id, v in self.people.items():
             writer.writerows([[id, v[0], v[1]]])
-        markDataFileAsDone(writer)
+        mark_data_file_complete(writer)
         self.files.append(fileName)
         self.scrapeSuccess = True
 
@@ -27,7 +27,7 @@ class PeopleScrapeTask(ScrapeTask):
         scrape = True
         while scrape:
             fullUrl = "https://www.boxofficemojo.com/people/?view=%s&p=.htm&pagenum=%d" % (type, pageCount)
-            trs = scrapeTableRows(fullUrl, attributes={'border':'0', 'cellspacing':'1', 'cellpadding':'5', 'width':'98%'})
+            trs = scrape_table_rows(fullUrl, attributes={'border': '0', 'cellspacing': '1', 'cellpadding': '5', 'width': '98%'})
             searchType = 'view=' + type
             if len(trs) > 0:
                 key = trs[1].text
@@ -49,7 +49,7 @@ class PeopleScrapeTask(ScrapeTask):
     
     def getPersonRoles(self, type, url):
         fullUrl = 'https://www.boxofficemojo.com/people/' + url.replace('./', '')
-        navTabs = scrapeList(fullUrl, {'class':'nav_tabs'})
+        navTabs = scrape_list(fullUrl, {'class': 'nav_tabs'})
         roles = ''
         if navTabs is None:
             roles += type[0:1]

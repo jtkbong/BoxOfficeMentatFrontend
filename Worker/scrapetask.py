@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from sqlWriter import writeRowsToDatabaseWithRetries, clearDatabase
+from sqlwriter import write_rows_to_db_retries, clear_database
 import os
 
 
@@ -19,9 +19,9 @@ class ScrapeTask(ABC):
         if self.enabled:
             self.scrape()
             if self.scrapeSuccess:
-                self.clearDatabase()
+                self.clear_database()
             if self.clearDatabaseSuccess:
-                self.writeToDatabase()
+                self.write_to_db()
             if self.writeToDbSuccess:
                 self.cleanup()
         else:
@@ -31,15 +31,15 @@ class ScrapeTask(ABC):
     def scrape(self):
         pass
     
-    def clearDatabase(self):
-        clearDatabase(self.tableName)
+    def clear_database(self):
+        clear_database(self.tableName)
         self.clearDatabaseSuccess = True
 
-    def writeToDatabase(self):
+    def write_to_db(self):
         for fileName in self.files:
             file = open(fileName, "r")
             lines = file.readlines()
-            writeRowsToDatabaseWithRetries(self.tableName, self.tableColumns, lines)
+            write_rows_to_db_retries(self.tableName, self.tableColumns, lines)
         self.writeToDbSuccess = True
         
     def cleanup(self):

@@ -1,11 +1,11 @@
 data = dict()
 
 
-def setList(name, list):
-    data[name] = list
+def set_list(name, list_data):
+    data[name] = list_data
 
 
-def getList(name):
+def get_list(name):
     if name in data:
         return data[name]
     return None

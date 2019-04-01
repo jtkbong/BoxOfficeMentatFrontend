@@ -1,7 +1,7 @@
 from scrapetask import ScrapeTask
 
 
-class CreditsScrapeTask(scrapeTask):
+class CreditsScrapeTask(ScrapeTask):
 
     def scrape(self):
         studios = self.getStudiosList()

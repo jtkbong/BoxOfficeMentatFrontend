@@ -5,31 +5,31 @@ from bs4 import BeautifulSoup
 doneIndicator = "###DONE###"
 
 
-def scrapeElement(elementType, url, attributes):
+def scrape_element(element_type, url, attributes):
     response = requests.get(url)
     html = response.content
     soup = BeautifulSoup(html, features="html.parser")    
-    element = soup.find(elementType, attrs=attributes)
+    element = soup.find(element_type, attrs=attributes)
     return element
 
 
-def scrapeElements(elementType, url, attributes):
+def scrape_elements(element_type, url, attributes):
     response = requests.get(url)
     html = response.content
     soup = BeautifulSoup(html, features="html.parser")    
-    element = soup.findAll(elementType, attrs=attributes)
+    element = soup.findAll(element_type, attrs=attributes)
     return element
 
 
-def scrapeList(url, attributes):
-    return scrapeElement('ul', url, attributes)
+def scrape_list(url, attributes):
+    return scrape_element('ul', url, attributes)
 
 
-def scrapeTable(url, attributes):
-    return scrapeElement('table', url, attributes)
+def scrape_table(url, attributes):
+    return scrape_element('table', url, attributes)
 
 
-def scrapeTables(url, attributes):
+def scrape_tables(url, attributes):
     response = requests.get(url)
     html = response.content
     soup = BeautifulSoup(html, features="html.parser")
@@ -37,8 +37,8 @@ def scrapeTables(url, attributes):
     return tables
 
 
-def scrapeTableRows(url, attributes):
-    table = scrapeTable(url, attributes)
+def scrape_table_rows(url, attributes):
+    table = scrape_table(url, attributes)
     if hasattr(table, 'findAll'):
         rows = table.findAll('tr')
         return rows
@@ -46,12 +46,12 @@ def scrapeTableRows(url, attributes):
         return []
     
 
-def markDataFileAsDone(writer):
+def mark_data_file_complete(writer):
     writer.writerow([doneIndicator])
 
 
-def isDataFileComplete(filePath):
-    if not Path(filePath).is_file():
+def is_data_file_complete(file_path):
+    if not Path(file_path).is_file():
         return False
-    content = Path(filePath).read_text()
+    content = Path(file_path).read_text()
     return content.endswith(doneIndicator + "\n")
