@@ -1,4 +1,4 @@
-from scrapeTask import ScrapeTask
+from scrapetask import ScrapeTask
 
 
 class CreditsScrapeTask(scrapeTask):

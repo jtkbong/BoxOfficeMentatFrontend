@@ -1,4 +1,4 @@
-data = {}
+data = dict()
 
 
 def setList(name, list):

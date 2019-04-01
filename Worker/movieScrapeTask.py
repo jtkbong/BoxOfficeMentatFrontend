@@ -1,4 +1,4 @@
-from scrapeTask import ScrapeTask
+from scrapetask import ScrapeTask
 from scrapeUtil import scrapeTable, scrapeTables, scrapeTableRows, markDataFileAsDone, isDataFileComplete
 from dataCache import setList, getList
 from parsingUtil import *

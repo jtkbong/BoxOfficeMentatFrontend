@@ -1,4 +1,4 @@
-from scrapeTask import ScrapeTask
+from scrapetask import ScrapeTask
 from scrapeUtil import scrapeElements, scrapeTableRows, markDataFileAsDone, isDataFileComplete
 from parsingUtil import *
 import csv
