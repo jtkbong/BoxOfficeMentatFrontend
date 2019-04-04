@@ -1,8 +1,8 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
-from Query import Query
-from Condition import Condition
-from SqlHelper import get_sql_conn
+from query import Query
+from condition import Condition
+from sqlhelper import get_sql_conn
 
 #from ListStudios import ListStudios
 

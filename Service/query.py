@@ -1,4 +1,4 @@
-from Condition import Condition
+from condition import Condition
 import uuid
 
 
@@ -65,7 +65,7 @@ class Query:
             if len(self.whereClauses) > 0:
                 whereClausesSql = []
                 for whereClause in self.whereClauses:
-                    whereClausesSql.append(whereClause.toSqlCondition())
+                    whereClausesSql.append(whereClause.to_sql_condition())
                 query = query + " AND ".join(whereClausesSql)
             
             if len(self.subQueries) > 0:
