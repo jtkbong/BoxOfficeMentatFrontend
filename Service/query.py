@@ -18,33 +18,33 @@ class Query:
         self.orderByColumns = []
         self.innerQuery = None
         
-    def setTable(self, table):
+    def set_table(self, table):
         self.table = table
         
-    def setUniqueResults(self, uniqueResults):
-        self.uniqueResults = uniqueResults    
+    def set_unique_results(self, unique_results):
+        self.uniqueResults = unique_results
     
-    def setReturnColumns(self, columns):
+    def set_return_columns(self, columns):
         self.columns = columns
         
-    def addWhereClause(self, condition):
+    def add_where_clause(self, condition):
         self.whereClauses.append(condition)
         
-    def setOrderByColumns(self, columns):
+    def set_order_by_columns(self, columns):
         self.orderByColumns = columns
                 
-    def setResultsOrder(self, resultsOrder):
-        self.resultsOrder = resultsOrder
+    def set_results_order(self, results_order):
+        self.resultsOrder = results_order
                 
-    def setMaxResults(self, maxResults):
-        self.maxResults = maxResults
+    def set_max_results(self, max_results):
+        self.maxResults = max_results
                 
-    def addSubquery(self, column, subquery):
+    def add_subquery(self, column, subquery):
         self.subQueries.append([column, subquery])
     
-    def toSqlQuery(self, includeLimit = True):
+    def to_sql_query(self, include_limit=True):
         
-        if self.table == None:
+        if self.table is None:
             raise ValueError("Table not set for query.")
         
         query = "SELECT "
@@ -56,56 +56,57 @@ class Query:
         else:
             query = query + "*"
             
-        query = query + (" FROM boxofficementat.%s") % self.table
+        query = query + " FROM boxofficementat.%s" % self.table
         
         if len(self.whereClauses) > 0 or len(self.subQueries) > 0:
         
             query = query + " WHERE "
         
             if len(self.whereClauses) > 0:
-                whereClausesSql = []
+                where_clauses_sql = []
                 for whereClause in self.whereClauses:
-                    whereClausesSql.append(whereClause.to_sql_condition())
-                query = query + " AND ".join(whereClausesSql)
+                    where_clauses_sql.append(whereClause.to_sql_condition())
+                query = query + " AND ".join(where_clauses_sql)
             
             if len(self.subQueries) > 0:
-                subQueriesSql = []
+                sub_queries_sql = []
                 for column, subQuery in self.subQueries:
-                    subQueriesSql.append(column + " IN (" + subQuery.toSqlQuery(False) + ")")
+                    sub_queries_sql.append(column + " IN (" + subQuery.to_sql_query(False) + ")")
                 if len(self.whereClauses) > 0:
                     query = query + " AND "
-                query = query + " AND ".join(subQueriesSql)
-        
-        
+                query = query + " AND ".join(sub_queries_sql)
+
         if len(self.orderByColumns) > 0:
             query = query + " ORDER BY " + ",".join(self.orderByColumns)
             if self.resultsOrder is not None:
                 query = query + " " + self.resultsOrder
 
-        if includeLimit:
-            query = query + (" LIMIT %d") % int(self.maxResults)
+        if include_limit:
+            query = query + " LIMIT %d" % int(self.maxResults)
 
         return query
 
-def testQuery():
+
+def test_query():
     query = Query()
-    query.setTable("Movies")
+    query.set_table("Movies")
     
     subquery1 = Query()
-    subquery1.setTable("Credits")
-    subquery1.setReturnColumns(["MovieId"])
-    subquery1.addWhereClause(Condition("PersonId", "=", "chrisevans"))
-    subquery1.addWhereClause(Condition("Relationship", "=", "Actor"))
+    subquery1.set_table("Credits")
+    subquery1.set_return_columns(["MovieId"])
+    subquery1.add_where_clause(Condition("PersonId", "=", "chrisevans"))
+    subquery1.add_where_clause(Condition("Relationship", "=", "Actor"))
     
     subquery2 = Query()
-    subquery2.setTable("Credits")
-    subquery2.setReturnColumns(["MovieId"])
-    subquery2.addWhereClause(Condition("PersonId", "=", "chrishemsworth"))
-    subquery2.addWhereClause(Condition("Relationship", "=", "Actor"))
+    subquery2.set_table("Credits")
+    subquery2.set_return_columns(["MovieId"])
+    subquery2.add_where_clause(Condition("PersonId", "=", "chrishemsworth"))
+    subquery2.add_where_clause(Condition("Relationship", "=", "Actor"))
     
-    query.addSubquery("Id", subquery1)
-    query.addSubquery("Id", subquery2)
+    query.add_subquery("Id", subquery1)
+    query.add_subquery("Id", subquery2)
     
-    print(query.toSqlQuery())
-    
-testQuery()
+    print(query.to_sql_query())
+
+
+test_query()

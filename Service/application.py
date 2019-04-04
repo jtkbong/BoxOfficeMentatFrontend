@@ -17,9 +17,9 @@ class GetPerson(Resource):
         connection = get_sql_conn()
         cursor = connection.cursor()        
         query = Query()
-        query.setTable("People")
-        query.addWhereClause(Condition('Id', '=', id))
-        command = query.toSqlQuery()
+        query.set_table("People")
+        query.add_where_clause(Condition('Id', '=', id))
+        command = query.to_sql_query()
         cursor.execute(command)
         
         person = cursor.fetchone()
@@ -33,9 +33,9 @@ class GetMovie(Resource):
         connection = get_sql_conn()
         cursor = connection.cursor()        
         query = Query()
-        query.setTable("Movies")
-        query.addWhereClause(Condition('Id', '=', id))
-        command = query.toSqlQuery()
+        query.set_table("Movies")
+        query.add_where_clause(Condition('Id', '=', id))
+        command = query.to_sql_query()
         cursor.execute(command)
         
         movie = cursor.fetchone()
@@ -52,24 +52,24 @@ class TopMoviesByBoxOffice(Resource):
         connection = get_sql_conn()
         cursor = connection.cursor()
         query = Query()
-        query.setTable("Movies")
+        query.set_table("Movies")
         if studio is not None:
-            query.addWhereClause(Condition('Studio', '=', studio))
+            query.add_where_clause(Condition('Studio', '=', studio))
         
         if person is not None:            
             subquery = Query()
-            subquery.setTable("Credits")
-            subquery.setReturnColumns(["MovieId"])
-            subquery.addWhereClause(Condition("PersonId", "=", person))            
-            query.addSubquery("Id", subquery)
+            subquery.set_table("Credits")
+            subquery.set_return_columns(["MovieId"])
+            subquery.add_where_clause(Condition("PersonId", "=", person))
+            query.add_subquery("Id", subquery)
         
         if maxResults is not None:
-            query.setMaxResults(maxResults)
+            query.set_max_results(maxResults)
             
-        query.setOrderByColumns(["DomesticGross"])
-        query.setResultsOrder("DESC")
+        query.set_order_by_columns(["DomesticGross"])
+        query.set_results_order("DESC")
             
-        command = query.toSqlQuery()
+        command = query.to_sql_query()
         print(command)
         cursor.execute(command)
         
@@ -84,9 +84,9 @@ class SearchMoviesByTitle(Resource):
         connection = get_sql_conn()
         cursor = connection.cursor()        
         query = Query()
-        query.setTable("Movies")
-        query.addWhereClause(Condition('Name', 'LIKE', "%" + title + "%"))
-        command = query.toSqlQuery()
+        query.set_table("Movies")
+        query.add_where_clause(Condition('Name', 'LIKE', "%" + title + "%"))
+        command = query.to_sql_query()
         print(command)
         cursor.execute(command)
         
@@ -125,10 +125,10 @@ class SearchPeople(Resource):
         cursor = connection.cursor()
         
         query = Query()
-        query.setTable("People")
-        query.addWhereClause(Condition("Name", "LIKE", "%" + name + "%"))
+        query.set_table("People")
+        query.add_where_clause(Condition("Name", "LIKE", "%" + name + "%"))
         
-        command = query.toSqlQuery()
+        command = query.to_sql_query()
         print(command)
         cursor.execute(command)
         
@@ -144,17 +144,17 @@ class GetMovieCredits(Resource):
         cursor = connection.cursor()
         
         query = Query()
-        query.setTable("People")
+        query.set_table("People")
         
         subquery = Query()
-        subquery.setTable("Credits")
-        subquery.setReturnColumns(["PersonId"])
-        subquery.addWhereClause(Condition("MovieId", "=", movieId))
-        subquery.addWhereClause(Condition("Relationship", "=", "Actor"))
+        subquery.set_table("Credits")
+        subquery.set_return_columns(["PersonId"])
+        subquery.add_where_clause(Condition("MovieId", "=", movieId))
+        subquery.add_where_clause(Condition("Relationship", "=", "Actor"))
         
-        query.addSubquery("Id", subquery)
+        query.add_subquery("Id", subquery)
         
-        command = query.toSqlQuery()
+        command = query.to_sql_query()
         cursor.execute(command)
         
         people = cursor.fetchall()        
@@ -167,17 +167,17 @@ def SearchMoviesByPersonWithRelationship(personId, relationshipType):
     cursor = connection.cursor()
     
     query = Query()
-    query.setTable("Movies")
+    query.set_table("Movies")
     
     subquery = Query()
-    subquery.setTable("Credits")
-    subquery.setReturnColumns(["MovieId"])
-    subquery.addWhereClause(Condition("PersonId", "=", personId))
-    subquery.addWhereClause(Condition("Relationship", "=", relationshipType))
+    subquery.set_table("Credits")
+    subquery.set_return_columns(["MovieId"])
+    subquery.add_where_clause(Condition("PersonId", "=", personId))
+    subquery.add_where_clause(Condition("Relationship", "=", relationshipType))
     
-    query.addSubquery("Id", subquery)
+    query.add_subquery("Id", subquery)
     
-    command = query.toSqlQuery()
+    command = query.to_sql_query()
     cursor.execute(command)
     
     movies = cursor.fetchall()        
