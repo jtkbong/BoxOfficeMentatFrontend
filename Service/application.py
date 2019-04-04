@@ -1,24 +1,20 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
-#from sqlalchemy import create_engine
-import pymysql
-from json import dumps
-#from flask.ext.jsonpify import jsonify
 from Query import Query
 from Condition import Condition
-from asn1crypto.x509 import TeletexPersonalName
-from SqlHelper import getSqlConnection
+from SqlHelper import get_sql_conn
 
 #from ListStudios import ListStudios
 
 application = app = Flask(__name__)
 api = Api(app)
 
+
 class GetPerson(Resource):
     def get(self):
         
         id = request.args.get('id')
-        connection = getSqlConnection()
+        connection = get_sql_conn()
         cursor = connection.cursor()        
         query = Query()
         query.setTable("People")
@@ -29,11 +25,12 @@ class GetPerson(Resource):
         person = cursor.fetchone()
         return personObjToJson(person)
 
+
 class GetMovie(Resource):
     def get(self):
         
         id = request.args.get('id')
-        connection = getSqlConnection()
+        connection = get_sql_conn()
         cursor = connection.cursor()        
         query = Query()
         query.setTable("Movies")
@@ -43,7 +40,8 @@ class GetMovie(Resource):
         
         movie = cursor.fetchone()
         return movieObjToJson(movie)
-        
+
+
 class TopMoviesByBoxOffice(Resource):
     def get(self):
         
@@ -51,7 +49,7 @@ class TopMoviesByBoxOffice(Resource):
         person = request.args.get('person')
         maxResults = request.args.get('maxResults')
         
-        connection = getSqlConnection()
+        connection = get_sql_conn()
         cursor = connection.cursor()
         query = Query()
         query.setTable("Movies")
@@ -78,11 +76,12 @@ class TopMoviesByBoxOffice(Resource):
         movies = cursor.fetchall()        
         return {'movies': [movieObjToJson(movie) for movie in movies]}
 
+
 class SearchMoviesByTitle(Resource):
     def get(self):
         
         title = request.args.get('title')
-        connection = getSqlConnection()
+        connection = get_sql_conn()
         cursor = connection.cursor()        
         query = Query()
         query.setTable("Movies")
@@ -93,31 +92,36 @@ class SearchMoviesByTitle(Resource):
         
         movies = cursor.fetchall()        
         return {'movies': [movieObjToJson(movie) for movie in movies]}
-    
+
+
 class SearchMoviesByActor(Resource):
     def get(self):
         actorId = request.args.get('actorId')
         return SearchMoviesByPersonWithRelationship(actorId, "Actor")
+
 
 class SearchMoviesByDirector(Resource):
     def get(self):
         directorId = request.args.get('directorId')
         return SearchMoviesByPersonWithRelationship(directorId, "Director")
 
+
 class SearchMoviesByProducer(Resource):
     def get(self):
         directorId = request.args.get('producerId')
         return SearchMoviesByPersonWithRelationship(directorId, "Producer")
-    
+
+
 class SearchMoviesByWriter(Resource):
     def get(self):
         directorId = request.args.get('writerId')
         return SearchMoviesByPersonWithRelationship(directorId, "Writer")
 
+
 class SearchPeople(Resource):
     def get(self):
         name = request.args.get('name')
-        connection = getSqlConnection()
+        connection = get_sql_conn()
         cursor = connection.cursor()
         
         query = Query()
@@ -130,12 +134,13 @@ class SearchPeople(Resource):
         
         people = cursor.fetchall()        
         return {'people': [personObjToJson(person) for person in people]}
-    
+
+
 class GetMovieCredits(Resource):
     def get(self):
         
         movieId = request.args.get('movieId')
-        connection = getSqlConnection()
+        connection = get_sql_conn()
         cursor = connection.cursor()
         
         query = Query()
@@ -154,10 +159,11 @@ class GetMovieCredits(Resource):
         
         people = cursor.fetchall()        
         return {'people': [personObjToJson(person) for person in people]}
-    
+
+
 def SearchMoviesByPersonWithRelationship(personId, relationshipType):
     
-    connection = getSqlConnection()
+    connection = get_sql_conn()
     cursor = connection.cursor()
     
     query = Query()
@@ -177,6 +183,7 @@ def SearchMoviesByPersonWithRelationship(personId, relationshipType):
     movies = cursor.fetchall()        
     return {'movies': [movieObjToJson(movie) for movie in movies]}    
 
+
 def movieObjToJson(movie):
     return {
         'id': movie[0], 
@@ -190,7 +197,8 @@ def movieObjToJson(movie):
         'mpaaRating': movie[8],
         'productionBudget': movie[9]
         }
-    
+
+
 def personObjToJson(person):
     return {
         'id': person[0], 
@@ -200,6 +208,7 @@ def personObjToJson(person):
         'producer': person[4],
         'screenWriter': person[5]
         }
+
 
 #api.add_resource(ListStudios, '/studios')
 api.add_resource(GetMovie, '/movie')
@@ -213,10 +222,12 @@ api.add_resource(SearchMoviesByWriter, '/moviesByWriter')
 api.add_resource(GetMovieCredits, '/movieCredits')
 api.add_resource(SearchPeople, '/people')
 
+
 @app.after_request
 def addCorsHeader(response):
     response.headers["Access-Control-Allow-Origin"] = "*"
     return response
+
 
 if __name__ == '__main__':
      app.run(port='5002')

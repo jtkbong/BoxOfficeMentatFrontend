@@ -1,6 +1,6 @@
 from Condition import Condition
 import uuid
-from asn1crypto._ffi import null
+
 
 class Query:
     
