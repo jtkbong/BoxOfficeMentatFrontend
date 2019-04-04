@@ -4,6 +4,7 @@ from peopleScrapeTask import PeopleScrapeTask
 from testMoviesScrapeTask import TestMoviesScrapeTask
 from weeklyGrossScrapeTask import WeeklyGrossScrapeTask
 from enum import Enum
+import configparser
 
 
 class Mode(Enum):
@@ -60,5 +61,12 @@ def run():
     print('Finished scraping data from boxofficemojo.com.')
 
 
+def read_config():
+    config = configparser.ConfigParser()
+    config.read('config/worker.ini')
+    print(config.sections())
+
+
 if __name__ == '__main__':
+    read_config()
     run()
