@@ -3,12 +3,28 @@ from peopleScrapeTask import PeopleScrapeTask
 #from boxOfficeScrapeTask import BoxOfficeScrapeTask
 from testMoviesScrapeTask import TestMoviesScrapeTask
 from weeklyGrossScrapeTask import WeeklyGrossScrapeTask
+from enum import Enum
+
+
+class Mode(Enum):
+    weeklyUpdate = 1
+    brandNew = 2
+    rebuildTables = 3
 
 
 def run():
     print('Starting scraping data from boxofficemojo.com...')
-    tasks = list()
-    tasks.append(MovieScrapeTask("Movies", [
+
+    weekly_tasks = list()
+    weekly_tasks.append(WeeklyGrossScrapeTask("WeeklyGross", [
+        'Id',
+        'MovieId',
+        'WeeklyGross',
+        'TheaterCount'
+    ], True))
+
+    rebuild_tables_tasks = list()
+    rebuild_tables_tasks.append(MovieScrapeTask("Movies", [
         'Id',
         'Name',
         'Studio',
@@ -20,7 +36,7 @@ def run():
         'MpaaRating',
         'ProductionBudget'
     ], False))
-    tasks.append(PeopleScrapeTask("People", [
+    rebuild_tables_tasks.append(PeopleScrapeTask("People", [
         'Id',
         'Name',
         'Actor',
@@ -28,15 +44,16 @@ def run():
         'Producer',
         'ScreenWriter'
     ], False))
-    tasks.append(WeeklyGrossScrapeTask("WeeklyGross", [
-        'Id',
-        'MovieId',
-        'WeeklyGross',
-        'TheaterCount'
-    ], True))
+
     #tasks.append(boxOfficeScrapeTask("boxOffice", ""))
-    tasks.append(TestMoviesScrapeTask('TestMovies', ['Id', 'Name', 'Studio', 'DomesticGross'], False))
-    for task in tasks:
+    rebuild_tables_tasks.append(TestMoviesScrapeTask('TestMovies', [
+        'Id',
+        'Name',
+        'Studio',
+        'DomesticGross'
+    ], False))
+
+    for task in weekly_tasks:
         print('\tExecuting scrape task for table ' + task.tableName + '...', end='')
         task.execute()
         print('DONE!')
