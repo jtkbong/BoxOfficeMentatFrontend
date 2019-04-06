@@ -1,4 +1,4 @@
-from condition import Condition
+from application import condition
 import uuid
 
 
@@ -94,14 +94,14 @@ def test_query():
     subquery1 = Query()
     subquery1.set_table("Credits")
     subquery1.set_return_columns(["MovieId"])
-    subquery1.add_where_clause(Condition("PersonId", "=", "chrisevans"))
-    subquery1.add_where_clause(Condition("Relationship", "=", "Actor"))
+    subquery1.add_where_clause(condition.Condition("PersonId", "=", "chrisevans"))
+    subquery1.add_where_clause(condition.Condition("Relationship", "=", "Actor"))
     
     subquery2 = Query()
     subquery2.set_table("Credits")
     subquery2.set_return_columns(["MovieId"])
-    subquery2.add_where_clause(Condition("PersonId", "=", "chrishemsworth"))
-    subquery2.add_where_clause(Condition("Relationship", "=", "Actor"))
+    subquery2.add_where_clause(condition.Condition("PersonId", "=", "chrishemsworth"))
+    subquery2.add_where_clause(condition.Condition("Relationship", "=", "Actor"))
     
     query.add_subquery("Id", subquery1)
     query.add_subquery("Id", subquery2)

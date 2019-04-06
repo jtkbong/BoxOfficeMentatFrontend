@@ -1,8 +1,9 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
-from query import Query
-from condition import Condition
-from sqlhelper import get_sql_conn
+from application.query import Query
+from application.condition import Condition
+from application.sqlhelper import get_sql_conn
+from application.movie import GetMovie
 
 #from ListStudios import ListStudios
 
@@ -24,22 +25,6 @@ class GetPerson(Resource):
         
         person = cursor.fetchone()
         return personObjToJson(person)
-
-
-class GetMovie(Resource):
-    def get(self):
-        
-        id = request.args.get('id')
-        connection = get_sql_conn()
-        cursor = connection.cursor()        
-        query = Query()
-        query.set_table("Movies")
-        query.add_where_clause(Condition('Id', '=', id))
-        command = query.to_sql_query()
-        cursor.execute(command)
-        
-        movie = cursor.fetchone()
-        return movieObjToJson(movie)
 
 
 class TopMoviesByBoxOffice(Resource):
@@ -229,5 +214,5 @@ def addCorsHeader(response):
     return response
 
 
-if __name__ == '__main__':
-     app.run(port='5002')
+#if __name__ == '__main__':
+#     app.run(port='5002')
