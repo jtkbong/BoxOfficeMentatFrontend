@@ -1,4 +1,3 @@
-from application import condition
 import uuid
 
 
@@ -85,28 +84,3 @@ class Query:
             query = query + " LIMIT %d" % int(self.maxResults)
 
         return query
-
-
-def test_query():
-    query = Query()
-    query.set_table("Movies")
-    
-    subquery1 = Query()
-    subquery1.set_table("Credits")
-    subquery1.set_return_columns(["MovieId"])
-    subquery1.add_where_clause(condition.Condition("PersonId", "=", "chrisevans"))
-    subquery1.add_where_clause(condition.Condition("Relationship", "=", "Actor"))
-    
-    subquery2 = Query()
-    subquery2.set_table("Credits")
-    subquery2.set_return_columns(["MovieId"])
-    subquery2.add_where_clause(condition.Condition("PersonId", "=", "chrishemsworth"))
-    subquery2.add_where_clause(condition.Condition("Relationship", "=", "Actor"))
-    
-    query.add_subquery("Id", subquery1)
-    query.add_subquery("Id", subquery2)
-    
-    print(query.to_sql_query())
-
-
-test_query()

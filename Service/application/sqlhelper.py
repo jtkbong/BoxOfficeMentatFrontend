@@ -1,8 +1,4 @@
 import pymysql
-from flask import Blueprint
-
-
-bp = Blueprint('sqlhelper', __name__)
 
 
 def get_sql_conn():
