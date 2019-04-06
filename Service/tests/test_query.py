@@ -1,6 +1,5 @@
-import pytest
-from application.query import Query
-from application.condition import Condition
+from application.common.query import Query
+from application.common.condition import Condition
 
 
 def test_query():
