@@ -1,8 +1,8 @@
 from flask import request
 from flask_restful import Resource
-from application import query
-from application import condition
-from application import sqlhelper
+from application.common import query
+from application.common import condition
+from application.common import sqlhelper
 
 
 class GetMovie(Resource):
