@@ -6,6 +6,10 @@ from application.model import person
 from application.model import credit
 
 
+def index():
+    return "Welcome to Box Office Mentat!"
+
+
 def create_app():
     app = Flask(__name__)
     api = Api(app)
@@ -19,6 +23,8 @@ def create_app():
     api.add_resource(person.SearchPeople, '/people')
 
     api.add_resource(credit.Credits, '/credits/<movie_id>')
+
+    app.add_url_rule('/', 'index', index)
 
     return app
 

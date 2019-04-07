@@ -11,7 +11,4 @@ def client():
 
 def test_client(client):
     assert client is not None
-
-
-def test_movie(client):
-    assert client.get('/movie/ironman').status_code == 200
+    assert client.get('/').status_code == 200

@@ -1,5 +1,6 @@
 from flask import request
 from flask_restful import Resource
+from werkzeug.exceptions import abort
 from application.common import query
 from application.common import condition
 from application.common import sqlhelper
@@ -14,8 +15,11 @@ class Person(Resource):
         person_query.add_where_clause(condition.Condition('Id', '=', id))
         command = person_query.to_sql_query()
         cursor.execute(command)
-
         person = cursor.fetchone()
+
+        if person is None:
+            abort(404, "Person {0} doesn't exist.".format(id))
+
         return person_to_json(person)
 
 

@@ -1,5 +1,6 @@
 from flask import request
 from flask_restful import Resource
+from werkzeug.exceptions import abort
 from application.common import query
 from application.common import condition
 from application.common import sqlhelper
@@ -17,6 +18,10 @@ class Movie(Resource):
         cursor.execute(command)
 
         movie = cursor.fetchone()
+
+        if movie is None:
+            abort(404, "Movie {0} doesn't exist.".format(id))
+
         return movie_to_json(movie)
 
 
