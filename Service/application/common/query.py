@@ -16,6 +16,7 @@ class Query:
         self.subQueries = []
         self.orderByColumns = []
         self.innerQuery = None
+        self.resultsOffset = 0
         
     def set_table(self, table):
         self.table = table
@@ -37,6 +38,9 @@ class Query:
                 
     def set_max_results(self, max_results):
         self.maxResults = max_results
+
+    def set_results_offet(self, results_offet):
+        self.resultsOffset = results_offet
                 
     def add_subquery(self, column, subquery):
         self.subQueries.append([column, subquery])
@@ -50,7 +54,7 @@ class Query:
         
         if len(self.columns) > 0:
             if self.uniqueResults is True:
-                query = query + " DISTINCT "
+                query = query + "DISTINCT "
             query = query + ",".join(self.columns)
         else:
             query = query + "*"
@@ -81,6 +85,6 @@ class Query:
                 query = query + " " + self.resultsOrder
 
         if include_limit:
-            query = query + " LIMIT %d" % int(self.maxResults)
+            query = query + " LIMIT %d, %d" % (int(self.resultsOffset), int(self.maxResults))
 
         return query
