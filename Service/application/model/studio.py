@@ -1,9 +1,27 @@
+from flask import request
 from flask_restful import Resource
 from application.common import query
+from application.common import condition
 from application.common import sqlhelper
 
 
-class ListStudios(Resource):
+class Studio(Resource):
+
+    def get(self, id):
+        connection = sqlhelper.get_sql_conn()
+        cursor = connection.cursor()
+        studio_query = query.Query()
+        studio_query.set_table("Movies")
+        studio_query.set_unique_results(True)
+        studio_query.set_return_columns(["Studio"])
+        studio_query.add_where_clause(condition.Condition('Studio', '=', id))
+
+        cursor.execute(studio_query.to_sql_query())
+        studio = cursor.fetchone()
+        return studio
+
+
+class Studios(Resource):
 
     def get(self):
         connection = sqlhelper.get_sql_conn()

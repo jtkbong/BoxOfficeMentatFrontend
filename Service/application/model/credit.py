@@ -5,10 +5,9 @@ from application.common import condition
 from application.common import sqlhelper
 
 
-class GetMovieCredits(Resource):
-    def get(self):
+class Credits(Resource):
+    def get(self, movie_id):
 
-        movie_id = request.args.get('movieId')
         connection = sqlhelper.get_sql_conn()
         cursor = connection.cursor()
 

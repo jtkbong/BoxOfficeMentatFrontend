@@ -5,20 +5,36 @@ from application.common import condition
 from application.common import sqlhelper
 
 
-class GetMovie(Resource):
+class Movie(Resource):
 
-    def get(self):
-        movie_id = request.args.get('id')
+    def get(self, id):
         connection = sqlhelper.get_sql_conn()
         cursor = connection.cursor()
         movie_query = query.Query()
         movie_query.set_table("Movies")
-        movie_query.add_where_clause(condition.Condition('Id', '=', movie_id))
+        movie_query.add_where_clause(condition.Condition('Id', '=', id))
         command = movie_query.to_sql_query()
         cursor.execute(command)
 
         movie = cursor.fetchone()
         return movie_to_json(movie)
+
+
+class Movies(Resource):
+
+    def get(self):
+        title = request.args.get('title')
+        connection = sqlhelper.get_sql_conn()
+        cursor = connection.cursor()
+        movies_query = query.Query()
+        movies_query.set_table("Movies")
+        movies_query.add_where_clause(condition.Condition('Name', 'LIKE', "%" + title + "%"))
+
+        command = movies_query.to_sql_query()
+        cursor.execute(command)
+
+        movies = cursor.fetchall()
+        return {'movies': [movie_to_json(movie) for movie in movies]}
 
 
 class TopMoviesByBoxOffice(Resource):
@@ -47,23 +63,6 @@ class TopMoviesByBoxOffice(Resource):
 
         movies_query.set_order_by_columns(["DomesticGross"])
         movies_query.set_results_order("DESC")
-
-        command = movies_query.to_sql_query()
-        cursor.execute(command)
-
-        movies = cursor.fetchall()
-        return {'movies': [movie_to_json(movie) for movie in movies]}
-
-
-class SearchMoviesByTitle(Resource):
-
-    def get(self):
-        title = request.args.get('title')
-        connection = sqlhelper.get_sql_conn()
-        cursor = connection.cursor()
-        movies_query = query.Query()
-        movies_query.set_table("Movies")
-        movies_query.add_where_clause(condition.Condition('Name', 'LIKE', "%" + title + "%"))
 
         command = movies_query.to_sql_query()
         cursor.execute(command)

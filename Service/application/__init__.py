@@ -1,5 +1,5 @@
-from application.application import create_application
+from application import application
 
 
 def create_app():
-    return create_application()
+    return application.create_app()

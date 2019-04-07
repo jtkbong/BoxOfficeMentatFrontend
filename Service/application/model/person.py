@@ -5,14 +5,13 @@ from application.common import condition
 from application.common import sqlhelper
 
 
-class GetPerson(Resource):
-    def get(self):
-        person_id = request.args.get('id')
+class Person(Resource):
+    def get(self, id):
         connection = sqlhelper.get_sql_conn()
         cursor = connection.cursor()
         person_query = query.Query()
         person_query.set_table("People")
-        person_query.add_where_clause(condition.Condition('Id', '=', person_id))
+        person_query.add_where_clause(condition.Condition('Id', '=', id))
         command = person_query.to_sql_query()
         cursor.execute(command)
 
