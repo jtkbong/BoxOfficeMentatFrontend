@@ -1,9 +1,9 @@
 from flask import Flask
 from flask_restful import Api
-from application.model import studio
-from application.model import movie
-from application.model import person
-from application.model import credit
+from application.resource import studio
+from application.resource import movie
+from application.resource import person
+from application.resource import credit
 
 
 def index():

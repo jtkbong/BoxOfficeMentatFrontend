@@ -1,4 +1,3 @@
-from flask import request
 from flask_restful import Resource
 from application.common import query
 from application.common import condition
