@@ -28,34 +28,21 @@ class Movie(Resource):
 class Movies(Resource):
 
     def get(self):
+
+        connection = sqlhelper.get_sql_conn()
+        cursor = connection.cursor()
+        movies_query = query.Query()
+        movies_query.set_table("Movies")
+
         title = request.args.get('title')
-        connection = sqlhelper.get_sql_conn()
-        cursor = connection.cursor()
-        movies_query = query.Query()
-        movies_query.set_table("Movies")
-        movies_query.add_where_clause(condition.Condition('Name', 'LIKE', "%" + title + "%"))
+        if title is not None:
+            movies_query.add_where_clause(condition.Condition('Name', 'LIKE', "%" + title + "%"))
 
-        command = movies_query.to_sql_query()
-        cursor.execute(command)
-
-        movies = cursor.fetchall()
-        return {'movies': [movie_to_json(movie) for movie in movies]}
-
-
-class TopMoviesByBoxOffice(Resource):
-
-    def get(self):
         studio = request.args.get('studio')
-        person = request.args.get('person')
-        max_results = request.args.get('maxResults')
-
-        connection = sqlhelper.get_sql_conn()
-        cursor = connection.cursor()
-        movies_query = query.Query()
-        movies_query.set_table("Movies")
         if studio is not None:
             movies_query.add_where_clause(condition.Condition('Studio', '=', studio))
 
+        person = request.args.get('person')
         if person is not None:
             subquery = query.Query()
             subquery.set_table("Credits")
@@ -63,11 +50,9 @@ class TopMoviesByBoxOffice(Resource):
             subquery.add_where_clause(condition.Condition("PersonId", "=", person))
             movies_query.add_subquery("Id", subquery)
 
+        max_results = request.args.get('maxResults')
         if max_results is not None:
             movies_query.set_max_results(max_results)
-
-        movies_query.set_order_by_columns(["DomesticGross"])
-        movies_query.set_results_order("DESC")
 
         command = movies_query.to_sql_query()
         cursor.execute(command)
