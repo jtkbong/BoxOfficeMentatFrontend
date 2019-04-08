@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from sqlwriter import write_rows_to_db_retries, clear_database
+from common.sqlwriter import write_rows_to_db_retries, clear_database
 import os
 
 

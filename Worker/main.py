@@ -1,8 +1,8 @@
-from movieScrapeTask import MovieScrapeTask
-from peopleScrapeTask import PeopleScrapeTask
-#from boxOfficeScrapeTask import BoxOfficeScrapeTask
-from testMoviesScrapeTask import TestMoviesScrapeTask
-from weeklyGrossScrapeTask import WeeklyGrossScrapeTask
+from scrapetasks.movieScrapeTask import MovieScrapeTask
+from scrapetasks.peopleScrapeTask import PeopleScrapeTask
+#from scrapetasks.boxOfficeScrapeTask import BoxOfficeScrapeTask
+from scrapetasks.testMoviesScrapeTask import TestMoviesScrapeTask
+from scrapetasks.weeklyGrossScrapeTask import WeeklyGrossScrapeTask
 from enum import Enum
 import configparser
 

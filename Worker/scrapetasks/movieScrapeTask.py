@@ -1,7 +1,7 @@
-from scrapetask import ScrapeTask
-from scrapeutil import *
-from datacache import *
-from parsingutil import *
+from scrapetasks.scrapetask import ScrapeTask
+from common.scrapeutil import *
+from common.datacache import *
+from common.parsingutil import *
 import csv
 
 

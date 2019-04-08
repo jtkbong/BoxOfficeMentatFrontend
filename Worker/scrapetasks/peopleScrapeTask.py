@@ -1,5 +1,5 @@
-from scrapetask import ScrapeTask
-from scrapeutil import *
+from scrapetasks.scrapetask import ScrapeTask
+from common.scrapeutil import *
 import csv
 
 
