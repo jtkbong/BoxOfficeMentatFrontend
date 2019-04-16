@@ -1,1 +1,2 @@
-# BoxOfficeMentat2
+# BoxOfficeMentatFrontend
+Frontend project for BoxOfficeMentat!
