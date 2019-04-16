@@ -5,10 +5,10 @@ import os
 
 class ScrapeTask(ABC):
     
-    def __init__(self, t, c, e):
-        self.tableName = t
-        self.tableColumns = c
-        self.enabled = e
+    def __init__(self, table_name, table_columns, task_enabled):
+        self.tableName = table_name
+        self.tableColumns = table_columns
+        self.enabled = task_enabled
         self.files = []
         self.scrapeSuccess = False
         self.clearDatabaseSuccess = False

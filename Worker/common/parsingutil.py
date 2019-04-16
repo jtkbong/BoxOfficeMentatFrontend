@@ -38,4 +38,7 @@ def get_id_from_url(url):
 
 
 def text_to_int(s):
-    return int(s.replace(',', ''))
+    try:
+        return int(s.replace(',', ''))
+    except ValueError:
+        return 0

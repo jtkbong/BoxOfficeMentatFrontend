@@ -1,8 +1,5 @@
 import requests
-from pathlib import Path
 from bs4 import BeautifulSoup
-
-doneIndicator = "###DONE###"
 
 
 def scrape_element(element_type, url, attributes):
@@ -44,14 +41,3 @@ def scrape_table_rows(url, attributes):
         return rows
     else:
         return []
-    
-
-def mark_data_file_complete(writer):
-    writer.writerow([doneIndicator])
-
-
-def is_data_file_complete(file_path):
-    if not Path(file_path).is_file():
-        return False
-    content = Path(file_path).read_text()
-    return content.endswith(doneIndicator + "\n")

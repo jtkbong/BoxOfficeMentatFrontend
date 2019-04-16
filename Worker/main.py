@@ -1,6 +1,6 @@
 from scrapetasks.movieScrapeTask import MovieScrapeTask
 from scrapetasks.peopleScrapeTask import PeopleScrapeTask
-#from scrapetasks.boxOfficeScrapeTask import BoxOfficeScrapeTask
+from scrapetasks.boxOfficeScrapeTask import BoxOfficeScrapeTask
 from scrapetasks.testMoviesScrapeTask import TestMoviesScrapeTask
 from scrapetasks.weeklyGrossScrapeTask import WeeklyGrossScrapeTask
 from enum import Enum
@@ -22,7 +22,7 @@ def run():
         'MovieId',
         'WeeklyGross',
         'TheaterCount'
-    ], True))
+    ], False))
 
     rebuild_tables_tasks = list()
     rebuild_tables_tasks.append(MovieScrapeTask("Movies", [
@@ -46,7 +46,13 @@ def run():
         'ScreenWriter'
     ], False))
 
-    #tasks.append(boxOfficeScrapeTask("boxOffice", ""))
+    rebuild_tables_tasks.append(BoxOfficeScrapeTask("boxOffice", [
+        'MovieId',
+        'StartDate',
+        'EndDate',
+        'Gross',
+        'TheaterCount'
+    ], True))
     rebuild_tables_tasks.append(TestMoviesScrapeTask('TestMovies', [
         'Id',
         'Name',
@@ -54,7 +60,7 @@ def run():
         'DomesticGross'
     ], False))
 
-    for task in weekly_tasks:
+    for task in rebuild_tables_tasks:
         print('\tExecuting scrape task for table ' + task.tableName + '...', end='')
         task.execute()
         print('DONE!')
