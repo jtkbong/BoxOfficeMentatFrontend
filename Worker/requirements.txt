@@ -1,4 +1,0 @@
-requests
-pymysql
-bs4
-retrying

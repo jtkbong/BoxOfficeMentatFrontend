@@ -1,9 +1,0 @@
-{
-  "boxOfficeScrapeTask": {
-    "mode": "rebuildData"
-  }
-
-  "weeklyBoxOfficeUpdate": {
-    "mode": "weeklyUpdate"
-  }
-}
