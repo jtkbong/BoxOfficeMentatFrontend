@@ -3,10 +3,11 @@ import React, { Component } from 'react';
 class StudioResults extends Component {
 
     constructor(props) {
-      super(props);
-      this.state = {
-          studios: []
-      };
+        super(props);
+        this.state = {
+            studios: []
+        };
+        this.getStudios();
     }
     
     getStudios() {
@@ -17,8 +18,7 @@ class StudioResults extends Component {
         });
     }
   
-    render() {	  
-        this.getStudios();
+    render() {
         return (
             <div>
                 <table>
