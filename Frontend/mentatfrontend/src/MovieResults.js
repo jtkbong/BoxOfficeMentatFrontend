@@ -10,8 +10,15 @@ class MovieResults extends Component {
     }
 
     componentWillReceiveProps(props) {
-        var title = props.title;
-		fetch("http://boxofficementatservice-env.quumv36r5v.us-west-2.elasticbeanstalk.com/movies?title=" + title, {mode: 'cors'})
+        
+        var params = [];
+        if (props.title) {
+            params.push("title=" + props.title);
+        }
+        if (props.studio) {
+            params.push("studio=" + props.studio);
+        }
+		fetch("http://boxofficementatservice-env.quumv36r5v.us-west-2.elasticbeanstalk.com/movies?" + params.join('&'), {mode: 'cors'})
 			.then(response => response.json())
 			.then(data => {
                     this.setState({movies: data.movies});
