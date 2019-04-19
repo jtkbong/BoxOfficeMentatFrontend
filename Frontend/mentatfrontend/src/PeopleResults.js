@@ -18,6 +18,27 @@ class PeopleResults extends Component {
 		});
     }
 
+    getOccupations(isActor, isDirector, isProducer, isScreenWriter) {
+        var occupations = [];
+        if (isActor) {
+            occupations.push("Actor");
+        }
+
+        if (isDirector) {
+            occupations.push("Director");
+        }
+
+        if (isProducer) {
+            occupations.push("Producer");
+        }
+
+        if (isScreenWriter) {
+            occupations.push("Screen Writer");
+        }
+
+        return occupations.join(',');
+    }
+
 	render() {
 		return (
 			<div>
@@ -30,7 +51,7 @@ class PeopleResults extends Component {
                         {this.state.people.map(person => 
                         <tr key={person.name}>
                             <td>{person.name}</td>
-                            <td>{person.actor}</td>
+                            <td>{this.getOccupations(person.actor, person.director, person.producer, person.screenWriter)}</td>
                         </tr>    
                         )}
                     </tbody>
