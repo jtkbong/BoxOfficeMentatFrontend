@@ -42,6 +42,7 @@ class PeopleResults extends Component {
 	render() {
 		return (
 			<div>
+                {this.state.people.length > 0 &&
 				<table>
                     <tbody>
                         <tr>
@@ -56,6 +57,7 @@ class PeopleResults extends Component {
                         )}
                     </tbody>
 				</table>
+                }
 			</div>
 		);
 	}

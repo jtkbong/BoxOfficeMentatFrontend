@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import MovieResults from './MovieResults';
+import DatePicker from 'react-datepicker';
+
+import "react-datepicker/dist/react-datepicker.css";
 
 class MovieSearchPane extends Component {
 	
@@ -7,15 +10,26 @@ class MovieSearchPane extends Component {
 		super(props);
 		this.state = {
 			title: null,
-			studio: null
+			studio: null,
+			selectedDate: new Date(2017, 3, 28),
+			releasedDate: null
 		};
-		this.handleClick = this.handleClick.bind(this);
+		this.handleSearchClick = this.handleSearchClick.bind(this);
+		this.handleReleasedDateChange = this.handleReleasedDateChange.bind(this);
 	}
 	
-	handleClick() {
+	handleSearchClick() {
+		console.log("HERE " + document.getElementById('releasedDate').selected);
 		this.setState({ 
 			title: document.getElementById('title').value,
-			studio: document.getElementById('studio').value 
+			studio: document.getElementById('studio').value,
+			releasedDate: this.state.selectedDate
+		});
+	}
+
+	handleReleasedDateChange(date) {
+		this.setState({
+			selectedDate: date
 		});
 	}
 	
@@ -26,8 +40,13 @@ class MovieSearchPane extends Component {
 				<br/>
 				Studio: <input type="text" id="studio" />
 				<br/>
-				<button onClick={this.handleClick}>Search</button>
-				<MovieResults title={this.state.title} studio={this.state.studio}/>
+				Release Date: <DatePicker id="releasedDate" 
+					selected={this.state.selectedDate} 
+					onChange={this.handleReleasedDateChange}/>
+				<br/>
+				<button onClick={this.handleSearchClick}>Search</button>
+				<MovieResults 
+					title={this.state.title} studio={this.state.studio} releasedDate={this.state.releasedDate}/>
 			</div>
 		);
 	}
