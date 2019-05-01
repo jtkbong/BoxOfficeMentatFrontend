@@ -8,7 +8,9 @@ import TestPage from './TestPage'
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
+import BoxOfficeMentatNavbar from './Navbar'
 import FooterPage from './FooterPage';
+//import { style } from 'react-toastify';
 
 class CommandUI extends Component {
 	
@@ -66,18 +68,27 @@ class App extends Component {
 	}
 
 	render() {
+
+		const contentStyle = {
+			margin: "40px"
+		}	
+
 		return (	  
 			<React.Fragment>
 		  <div>
-			<h1>Box Office Mentat</h1>
 			<div>
-				<button type="button" value="studios" onClick={() => this.commandButtonClick('studios')}>Studios</button>
-				<button type="button" value="movieSearch" onClick={() => this.commandButtonClick('movieSearch')}>Movie Search</button>
-				<button type="button" value="actors" onClick={() => this.commandButtonClick('actors')}>Actors</button>
-				<button type="button" value="boxOffice" onClick={() => this.commandButtonClick('boxOffice')}>Box Office</button>
-				<button type="button" value="test" onClick={() => this.commandButtonClick('test')}>Test</button>
+				<BoxOfficeMentatNavbar />
 			</div>
-			<CommandUI commandSelected={this.state.commandSelected} />
+			<div style={contentStyle}>
+				<div>
+					<button type="button" value="studios" onClick={() => this.commandButtonClick('studios')}>Studios</button>
+					<button type="button" value="movieSearch" onClick={() => this.commandButtonClick('movieSearch')}>Movie Search</button>
+					<button type="button" value="actors" onClick={() => this.commandButtonClick('actors')}>Actors</button>
+					<button type="button" value="boxOffice" onClick={() => this.commandButtonClick('boxOffice')}>Box Office</button>
+					<button type="button" value="test" onClick={() => this.commandButtonClick('test')}>Test</button>
+				</div>
+				<CommandUI commandSelected={this.state.commandSelected} />
+			</div>
 		  </div>
 		  <div>
 			  <FooterPage />
