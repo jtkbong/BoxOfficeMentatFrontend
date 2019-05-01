@@ -5,6 +5,10 @@ import BoxOfficeResults from './BoxOfficeResults'
 import PeopleSearchPane from './PeopleSearchPane'
 import MovieSearchPane from './MovieSearchPane'
 import TestPage from './TestPage'
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "bootstrap-css-only/css/bootstrap.min.css";
+import "mdbreact/dist/css/mdb.css";
+import FooterPage from './FooterPage';
 
 class CommandUI extends Component {
 	
@@ -63,6 +67,7 @@ class App extends Component {
 
 	render() {
 		return (	  
+			<React.Fragment>
 		  <div>
 			<h1>Box Office Mentat</h1>
 			<div>
@@ -74,6 +79,10 @@ class App extends Component {
 			</div>
 			<CommandUI commandSelected={this.state.commandSelected} />
 		  </div>
+		  <div>
+			  <FooterPage />
+		  </div>
+		  </React.Fragment>
 		);
 	}
 }

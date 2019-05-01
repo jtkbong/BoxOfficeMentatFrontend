@@ -18,7 +18,7 @@ class MovieSearchPane extends Component {
 
 			genreOptionsLoaded: false,
 			genres: [],
-			selectedGenre: null,
+			selectedGenre: '',
 			genre: null
 		};
 		
