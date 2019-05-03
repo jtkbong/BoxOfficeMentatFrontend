@@ -18,12 +18,19 @@ class BoxOfficeMentatNavbar extends React.Component {
   }
 
   render() {
+
+    const logoStyle = {
+        "margin-right": "10px",
+        width: "10%"
+    }
+
     return (
       <div>
         <Router>
           <header>
             <MDBNavbar color="blue accent-3" dark expand="md">
               <MDBNavbarBrand href="/">
+              <img src="/boxofficementat.jpg" style={logoStyle}/>
                 <strong>Box Office Mentat</strong>
               </MDBNavbarBrand>
               <MDBNavbarToggler onClick={this.onClick} />
