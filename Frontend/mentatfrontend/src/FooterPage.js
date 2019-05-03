@@ -18,6 +18,9 @@ const FooterPage = () => {
               <li className="list-unstyled">
                 <a href="https://en.wikipedia.org/wiki/Dune_(novel)">Dune</a>
               </li>
+              <li className="list-unstyled">
+                <a href="#!">Unpaid Careers</a>
+              </li>
             </ul>
           </MDBCol>
           <MDBCol md="6">
