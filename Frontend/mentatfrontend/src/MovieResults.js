@@ -37,24 +37,29 @@ class MovieResults extends Component {
 
 	render() {
 
+        const columnStyle = {
+            "text-align": "left",
+            "padding": "2px 10px 2px 10px"   
+        }
+
         return (
 			<div>
                 {this.state.movies.length > 0 &&
 				<table>
                     <tbody>
                         <tr>
-                            <th align='left'>Title</th>
-                            <th align='left'>Studio</th>
-                            <th align='left'>Genre</th>
-                            <th align='left'>Released Date</th>
-                            <th align='left'>Domestic Gross</th>
+                            <th style={columnStyle}>Title</th>
+                            <th style={columnStyle}>Studio</th>
+                            <th style={columnStyle} >Genre</th>
+                            <th style={columnStyle}>Released Date</th>
+                            <th style={columnStyle}>Domestic Gross</th>
                         </tr>
                         {this.state.movies.map(movie => 
                         <tr key={movie.name}>
-                            <td>{movie.name}</td>
-                            <td>{movie.studio}</td>
-                            <td>{movie.genre}</td>
-                            <td>{movie.releasedDate}</td>
+                            <td style={columnStyle}>{movie.name}</td>
+                            <td style={columnStyle}>{movie.studio}</td>
+                            <td style={columnStyle}>{movie.genre}</td>
+                            <td style={columnStyle}>{movie.releasedDate}</td>
                             <td align='right'>${movie.domesticGross}</td>
                         </tr>    
                         )}
