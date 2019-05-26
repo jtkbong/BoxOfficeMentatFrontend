@@ -28,7 +28,7 @@ class StudioResults extends Component {
                             <th align='left'>Movies Made</th>
                         </tr>
                         {this.state.studios.map(studio => 
-                        <tr key={studio.name}>
+                            <tr key={studio.id}>
                             <td>{studio.name}</td>
                             <td>{studio.count}</td>
                         </tr>    

@@ -73,7 +73,7 @@ class MovieSearchPane extends Component {
 		};
 
 		return (
-			<div>
+			<div style={{height: "500px"}}>
 				Title: <input type="text" id="title" />
 				<br/>
 				Studio: <input type="text" id="studio" />

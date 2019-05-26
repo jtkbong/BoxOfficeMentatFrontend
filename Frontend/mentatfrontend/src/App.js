@@ -1,56 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import StudioResults from './StudioResults'
-import BoxOfficeResults from './BoxOfficeResults'
-import PeopleSearchPane from './PeopleSearchPane'
-import MovieSearchPane from './MovieSearchPane'
-import TestPage from './TestPage'
+import SideNavBar from './SideNavBar'
+import ResultsPane from './ResultsPane'
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 import BoxOfficeMentatNavbar from './Navbar'
 import FooterPage from './FooterPage';
 //import { style } from 'react-toastify';
-
-class CommandUI extends Component {
-	
-	render() {
-		
-		if(this.props.commandSelected === "studios") {
-			return (
-				<StudioResults />
-			);
-		}
-		
-		if(this.props.commandSelected === "movieSearch") {
-			return (
-				<MovieSearchPane />
-			);
-		}
-		
-		if(this.props.commandSelected === "actors") {
-			return (
-				<PeopleSearchPane />
-			);
-		}
-		
-		if(this.props.commandSelected === "boxOffice") {
-			return (
-				<BoxOfficeResults />
-			);
-		}
-
-		if(this.props.commandSelected === "test") {
-			return (
-				<TestPage />
-			);
-		}
-		
-		return (
-			<div>Please select a command!</div>
-		);
-	}
-}
 
 class App extends Component {
 
@@ -59,6 +16,7 @@ class App extends Component {
 		this.state = {
 			commandSelected: null
 		};
+		this.commandButtonClick = this.commandButtonClick.bind(this);
 	}
 	
 	commandButtonClick(commandType) {
@@ -69,30 +27,24 @@ class App extends Component {
 
 	render() {
 
-		const contentStyle = {
-			margin: "40px"
-		}	
-
 		return (	  
 			<React.Fragment>
-		  <div>
-			<div>
-				<BoxOfficeMentatNavbar />
-			</div>
-			<div style={contentStyle}>
+		  	<div>
 				<div>
-					<button type="button" value="studios" onClick={() => this.commandButtonClick('studios')}>Studios</button>
-					<button type="button" value="movieSearch" onClick={() => this.commandButtonClick('movieSearch')}>Movie Search</button>
-					<button type="button" value="actors" onClick={() => this.commandButtonClick('actors')}>Actors</button>
-					<button type="button" value="boxOffice" onClick={() => this.commandButtonClick('boxOffice')}>Box Office</button>
-					<button type="button" value="test" onClick={() => this.commandButtonClick('test')}>Test</button>
+					<BoxOfficeMentatNavbar/>
 				</div>
-				<CommandUI commandSelected={this.state.commandSelected} />
-			</div>
-		  </div>
-		  <div>
-			  <FooterPage />
-		  </div>
+				<div style={{ overflow: "hidden", position: "relative", width: "100%" }}>
+					<div >
+						<SideNavBar clickHandler={this.commandButtonClick}/>
+					</div>
+					<div style={{ position: "relative", left: "150px"}}>
+						<ResultsPane commandSelected={this.state.commandSelected} />
+					</div>
+				</div>
+		 	</div>
+		  	<div>
+			  	<FooterPage />
+		  	</div>
 		  </React.Fragment>
 		);
 	}

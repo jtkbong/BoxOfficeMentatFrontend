@@ -17,7 +17,7 @@ class PeopleSearchPane extends Component {
 	
 	render() {
 		return (
-			<div>
+			<div style={{height: "500px"}}>
 				Name: <input type="text" id="name" />
 				<br/>
 				<button onClick={this.handleClick}>Search</button>

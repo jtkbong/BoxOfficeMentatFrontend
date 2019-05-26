@@ -11,7 +11,6 @@ class MovieResults extends Component {
 
     componentWillReceiveProps(props) {
         if (!(props.title === null && props.studio === null && props.releasedDate === null && props.genre === null)) {
-            console.log(props);
             var params = [];
             if (props.title) {
                 params.push("title=" + props.title);
@@ -38,7 +37,7 @@ class MovieResults extends Component {
 	render() {
 
         const columnStyle = {
-            "text-align": "left",
+            "textAlign": "left",
             "padding": "2px 10px 2px 10px"   
         }
 
