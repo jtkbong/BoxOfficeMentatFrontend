@@ -25,6 +25,10 @@ class ResultsPane extends Component {
                 return (
                     <PeopleSearchPane />
                 );
+            case "test":
+                return (
+                    <TestPage />
+                );
             default:
                 return (
                     <div style={{height:"500px"}} />

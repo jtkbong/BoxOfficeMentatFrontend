@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MovieResults from './MovieResults'
+import MovieResult from './MovieResult'
 
 class TestPage extends Component {
 	constructor(props) {
@@ -11,8 +11,7 @@ class TestPage extends Component {
 	render() {
 		return (
 			<div>
-                Test
-                <MovieResults title="iron" />
+                <MovieResult/>
 			</div>
 		);
 	}

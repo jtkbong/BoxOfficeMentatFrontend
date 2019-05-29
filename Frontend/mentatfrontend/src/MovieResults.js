@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 
 class MovieResults extends Component {
 
@@ -55,7 +56,7 @@ class MovieResults extends Component {
                         </tr>
                         {this.state.movies.map(movie => 
                         <tr key={movie.name}>
-                            <td style={columnStyle}>{movie.name}</td>
+                            <td style={columnStyle}><Link to={'movie/' + movie.id}>{movie.name}</Link></td>
                             <td style={columnStyle}>{movie.studio}</td>
                             <td style={columnStyle}>{movie.genre}</td>
                             <td style={columnStyle}>{movie.releasedDate}</td>

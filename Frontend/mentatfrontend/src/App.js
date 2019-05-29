@@ -28,7 +28,7 @@ class App extends Component {
 	render() {
 
 		return (	  
-			<React.Fragment>
+			<div>
 		  	<div>
 				<div>
 					<BoxOfficeMentatNavbar/>
@@ -45,7 +45,7 @@ class App extends Component {
 		  	<div>
 			  	<FooterPage />
 		  	</div>
-		  </React.Fragment>
+		  </div>
 		);
 	}
 }
