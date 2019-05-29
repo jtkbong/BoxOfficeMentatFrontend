@@ -12,6 +12,8 @@ import MovieSearchPane from './MovieSearchPane'
 import StudioResults from './StudioResults'
 import PeopleSearchPane from './PeopleSearchPane'
 import TestPage from './TestPage'
+import AboutPage from './AboutPage'
+import CareersPage from './Careers'
 
 const routing = (
     <Router>
@@ -30,6 +32,8 @@ const routing = (
                     <Route exact path="/people" component={PeopleSearchPane} />
                     <Route exact path="/movie/:movieId" component={MovieResult} />
                     <Route exact path="/test" component={TestPage} />
+                    <Route exact path="/about" component={AboutPage} />
+                    <Route exact path="/unpaidcareers" component={CareersPage} />
                 </div>
             </div>
             <div>
