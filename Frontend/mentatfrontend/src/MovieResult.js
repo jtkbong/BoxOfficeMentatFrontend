@@ -25,7 +25,7 @@ class MovieResult extends Component {
         const { movieId } = this.props.match.params;
         console.log(movieId); 
 
-        fetch("http://boxofficementatservice-env.quumv36r5v.us-west-2.elasticbeanstalk.com/movie/${movieId}", { mode: 'cors' })
+        fetch("http://boxofficementatservice-env.quumv36r5v.us-west-2.elasticbeanstalk.com/movie/" + movieId, { mode: 'cors' })
             .then(response => response.json())
             .then(data => {
                 const timeDomain = d3.extent(data.weeks, week => week.weekNumber);
