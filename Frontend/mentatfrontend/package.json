@@ -14,7 +14,7 @@
     "react-datepicker": "^2.4.0",
     "react-dom": "^16.5.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.5",
+    "react-scripts": "3.0.0",
     "react-select": "^2.4.3"
   },
   "scripts": {
@@ -23,5 +23,17 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "build-and-deploy": "npm run build && s3cmd sync build/* s3://boxofficementat.com && echo '🚀  Deployed!'"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
