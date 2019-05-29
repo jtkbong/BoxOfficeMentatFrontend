@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { scaleLinear } from 'd3-scale';
 import * as d3 from 'd3';
-import { Axis, axisPropsFromTickScale, RIGHT, BOTTOM } from 'react-d3-axis';
+import { Axis, axisPropsFromTickScale, LEFT, BOTTOM } from 'react-d3-axis';
 
 class BarChart extends Component {
 
@@ -20,11 +20,17 @@ class BarChart extends Component {
         });
     }
 
+    intToTextAmount(val) {
+        if (val) {
+            return val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').replace('.00', '');
+        }
+    }
+
     render() {
 
         const maxWeekCount = d3.max(this.state.data, week => week.weekNumber);
         const xScale = scaleLinear()
-            .domain([1, maxWeekCount])
+            .domain([1  , maxWeekCount + 1])
             .range([0, this.state.size[0]]);
 
         const maxGross = d3.max(this.state.data, week => week.gross);
@@ -32,31 +38,43 @@ class BarChart extends Component {
             .domain([0, maxGross * 1.2])
             .range([0, this.state.size[1]]);
 
+        const yScaleReverse = scaleLinear()
+        .domain([0, maxGross * 1.2])
+        .range([this.state.size[1], 0]);
+
+        const widthPerBar = this.state.size[0] / this.state.data.length;
+
         return (
-            <svg key="barChartGraphic" width={this.state.size[0] + 10} height={this.state.size[1] + 10}>
+            <svg key="barChartGraphic" width={this.state.size[0] + 100} height={this.state.size[1] + 100}>
+            <g transform="translate(80, 20)">
                 {
                     this.state.data.map(week =>
                         <React.Fragment key={"fragment" + week.weekNumber}>
                             <rect key={"week" + week.weekNumber}
-                                x={(30 * week.weekNumber)}
+                                x={2 +(widthPerBar * (week.weekNumber - 1))}
                                 y={this.state.size[1] - yScale(week.gross)}
                                 height={yScale(week.gross)}
-                                width="25"
+                                width={widthPerBar - 2}
                                 style={{ fill: "#00BFFF" }} >
                             </rect>
                             <text key={"weekText" + week.weekNumber}
-                                x={30 * week.weekNumber}
+                                x={(5 + widthPerBar * (week.weekNumber - 1))}
                                 y={this.state.size[1] - yScale(week.gross)}
                                 fontSize="10"
-                                transform={"rotate(-30 " + 30 * week.weekNumber + " " + (this.state.size[1] - yScale(week.gross)) + ")"}
+                                transform={"rotate(-30 " + widthPerBar * (week.weekNumber - 1) + " " + (this.state.size[1] - yScale(week.gross)) + ")"}
                             >
-                                {week.gross}
+                                ${this.intToTextAmount(week.gross)}
                             </text>
                         </React.Fragment>
                     )
                 }
-                <Axis key="yAxis" {...axisPropsFromTickScale(yScale, 4)} style={{ orient: RIGHT }} />
-                <Axis key="xAxis" {...axisPropsFromTickScale(xScale, maxWeekCount)} style={{ orient: BOTTOM }} />
+                </g>
+                <g transform="translate(80, 20)">
+                <Axis key="yAxis" {...axisPropsFromTickScale(yScaleReverse, 4)} style={{ orient: LEFT }} />
+                </g>
+                <g transform={"translate(" + (80 + widthPerBar/2) + ", " + (20 + this.state.size[1]) + ")"}>
+                <Axis key="xAxis" {...axisPropsFromTickScale(xScale, maxWeekCount + 1)} style={{ orient: BOTTOM }} />
+                </g>
             </svg>);
     }
 }

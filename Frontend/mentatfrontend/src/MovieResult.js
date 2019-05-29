@@ -85,6 +85,12 @@ class MovieResult extends Component {
                             <td><b>Production Budget</b></td>
                             <td>${this.intToTextAmount(this.state.productionBudget)}</td>
                         </tr>
+                        {this.state.weeks.length > 0 &&
+                        <tr>
+                            <td><b>Opening Week</b></td>
+                            <td>${this.intToTextAmount(this.state.weeks[0].gross)}</td>
+                        </tr>
+                        }
                         <tr>
                             <td><b>Weeks in Theaters</b></td>
                             <td>{this.state.weeks.length}</td>
@@ -93,7 +99,7 @@ class MovieResult extends Component {
                 </table>
                 <br />
                 <div key="weeksHeader"><b>Weeks for Box Office:</b></div>
-                <BarChart key="barChart" data={this.state.weeks} size={[600, 200]} />
+                <BarChart key="barChart" data={this.state.weeks} size={[600, 150]} />
             </div>
         );
     }

@@ -13,7 +13,7 @@ class MovieSearchPane extends Component {
 			title: null,
 			studio: null,
 			
-			selectedDate: new Date(2017, 3, 28),
+			selectedDate: null,
 			releasedDate: null,
 
 			genreOptionsLoaded: false,
