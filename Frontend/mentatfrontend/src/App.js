@@ -13,7 +13,7 @@ class App extends Component {
 		};
 		this.commandButtonClick = this.commandButtonClick.bind(this);
 	}
-	
+
 	commandButtonClick(commandType) {
 		this.setState({
 			commandSelected: commandType
@@ -22,10 +22,9 @@ class App extends Component {
 
 	render() {
 
-		return (	  
-			<div style={{height: "500px"}}>
-			wut{process.env.REACT_APP_API_URL}
-		  </div>
+		return (
+			<div style={{ height: "500px" }}>
+			</div>
 		);
 	}
 }
