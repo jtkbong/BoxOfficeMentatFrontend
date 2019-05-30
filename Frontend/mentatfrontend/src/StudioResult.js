@@ -19,7 +19,8 @@ class StudioResult extends Component {
 	
 	render() {
 		return (
-			<div style={{height: "650px"}}>
+			<div style={{height: "675px"}}>
+				<h4 style={{margin: "15px 0px 10px 0px"}}>{this.state.studioId}</h4>
                 <MovieResults
 					studioId={this.state.studioId}/>
 			</div>
