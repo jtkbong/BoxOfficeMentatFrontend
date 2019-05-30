@@ -30,7 +30,8 @@ class MovieSearchPane extends Component {
 	loadGenreOptions(input, callback) {
 		if (!this.state.genreOptionsLoaded) {
 			this.setState({ optionsLoaded: true });
-			fetch("http://boxofficementatservice-env.quumv36r5v.us-west-2.elasticbeanstalk.com/genres", { mode: 'cors' })
+			const url = process.env.REACT_APP_API_URL + "genres";
+			fetch(url, { mode: 'cors' })
 				.then(response => response.json())
 				.then(data => {
 					let options = data.genres.map(genre => ({

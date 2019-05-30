@@ -17,8 +17,8 @@ class MovieResult extends Component {
 
     componentDidMount() {
         const { movieId } = this.props.match.params;
-
-        fetch("http://boxofficementatservice-env.quumv36r5v.us-west-2.elasticbeanstalk.com/movie/" + movieId, { mode: 'cors' })
+        const url = process.env.REACT_APP_API_URL + "movie/" + movieId;
+        fetch(url, { mode: 'cors' })
             .then(response => response.json())
             .then(data => {
                 const filteredWeeks = data.weeks.filter(this.checkNormalWeek);

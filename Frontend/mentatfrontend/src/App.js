@@ -3,7 +3,6 @@ import './App.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
-//import { style } from 'react-toastify';
 
 class App extends Component {
 
@@ -25,6 +24,7 @@ class App extends Component {
 
 		return (	  
 			<div style={{height: "500px"}}>
+			wut{process.env.REACT_APP_API_URL}
 		  </div>
 		);
 	}

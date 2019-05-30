@@ -20,21 +20,24 @@ class MovieResults extends Component {
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getMovies();
     }
 
     componentWillReceiveProps(props) {
-        this.setState({
-            pageNumber: 0,
-            movies: [],
-            title: props.title,
-            studioId: props.studioId,
-            releasedDate: props.releasedDate,
-            genre: props.genre
-        }, () => {
-            this.getMovies();
-        });
+        if (props.title !== this.state.title || props.studioId !== this.state.studioId ||
+            props.genre !== this.state.genre || props.releasedDate !== this.state.releasedDate) {
+            this.setState({
+                pageNumber: 0,
+                movies: [],
+                title: props.title,
+                studioId: props.studioId,
+                releasedDate: props.releasedDate,
+                genre: props.genre
+            }, () => {
+                this.getMovies();
+            });
+        }
     }
 
     getMovies() {
@@ -60,7 +63,7 @@ class MovieResults extends Component {
             const offset = this.state.pageNumber * MovieResults.resultsPerPage;
             params.push("offset=" + offset);
 
-            const url = "http://boxofficementatservice-env.quumv36r5v.us-west-2.elasticbeanstalk.com/movies?" + params.join('&');
+            const url = process.env.REACT_APP_API_URL + "movies?" + params.join('&');
 
             fetch(url, { mode: 'cors' })
                 .then(response => response.json())

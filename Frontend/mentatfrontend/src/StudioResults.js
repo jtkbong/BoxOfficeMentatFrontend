@@ -22,8 +22,8 @@ class StudioResults extends Component {
     getStudios() {
         const offset = this.state.pageNumber * StudioResults.resultsPerPage;
         const studiosQueryString = "?maxResults=" + StudioResults.resultsPerPage + "&offset=" + offset;
-        fetch("http://boxofficementatservice-env.quumv36r5v.us-west-2.elasticbeanstalk.com/studios" + 
-            studiosQueryString, { mode: 'cors' })
+        const url = process.env.REACT_APP_API_URL + "studios" + studiosQueryString;
+        fetch(url, { mode: 'cors' })
             .then(response => response.json())
             .then(data => {
                 this.setState({ 

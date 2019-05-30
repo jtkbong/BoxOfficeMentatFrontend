@@ -10,8 +10,9 @@ class PeopleResults extends Component {
     }
 
     componentWillReceiveProps(props) {
-        var name = props.name;
-		fetch("http://boxofficementatservice-env.quumv36r5v.us-west-2.elasticbeanstalk.com/people?name=" + name, {mode: 'cors'})
+        const name = props.name;
+        const url = process.env.REACT_APP_API_URL + "people?name=" + name
+		fetch(url, {mode: 'cors'})
 			.then(response => response.json())
 			.then(data => {
 				this.setState({people: data.people })

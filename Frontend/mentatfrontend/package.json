@@ -17,7 +17,8 @@
     "react-paginate": "^6.3.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "3.0.0",
-    "react-select": "^2.4.3"
+    "react-select": "^2.4.3",
+    "uninstall": "0.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -37,5 +38,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "dotenv": "^8.0.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.2"
   }
 }
