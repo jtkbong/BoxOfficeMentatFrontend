@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactPaginate from 'react-paginate';
 import { Link } from 'react-router-dom';
-import './pagination.css';
+import './css/pagination.css'
 
 class StudioResults extends Component {
 
