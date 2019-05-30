@@ -10,6 +10,7 @@ import SideNavBar from './SideNavBar'
 import FooterPage from './FooterPage';
 import MovieSearchPane from './MovieSearchPane'
 import StudioResults from './StudioResults'
+import StudioResult from './StudioResult'
 import PeopleSearchPane from './PeopleSearchPane'
 import TestPage from './TestPage'
 import AboutPage from './AboutPage'
@@ -27,6 +28,7 @@ const routing = (
                 </div>
                 <div style={{ position: "relative", left: "150px" }}>
                     <Route exact path="/" component={App} />
+                    <Route exact path="/studio/:studioId" component={StudioResult} />
                     <Route exact path="/studios" component={StudioResults} />
                     <Route exact path="/movies" component={MovieSearchPane} />
                     <Route exact path="/people" component={PeopleSearchPane} />

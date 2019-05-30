@@ -46,15 +46,12 @@ class MovieResult extends Component {
 
     render() {
         return (
-            <div key="movieStats" style={{ height: "500px" }}>
+            <div key="movieStats" style={{ height: "550px" }}>
+            <h4 style={{margin: "15px 0px 10px 0px"}}>{this.state.name}</h4>
                 <table>
                     <tbody>
                         <tr>
-                            <td style={{ width: "170px" }}><b>Name</b></td>
-                            <td>{this.state.name}</td>
-                        </tr>
-                        <tr>
-                            <td><b>Studio</b></td>
+                            <td style={{ width: "170px" }}><b>Studio</b></td>
                             <td>{this.state.studio}</td>
                         </tr>
                         <tr>

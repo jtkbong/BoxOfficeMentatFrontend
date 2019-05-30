@@ -6,13 +6,13 @@ import Select from 'react-select';
 import "react-datepicker/dist/react-datepicker.css";
 
 class MovieSearchPane extends Component {
-	
+
 	constructor(props) {
 		super(props);
 		this.state = {
 			title: null,
-			studio: null,
-			
+			studioId: null,
+
 			selectedDate: null,
 			releasedDate: null,
 
@@ -21,7 +21,7 @@ class MovieSearchPane extends Component {
 			selectedGenre: '',
 			genre: null
 		};
-		
+
 		this.handleSearchClick = this.handleSearchClick.bind(this);
 		this.handleReleasedDateChange = this.handleReleasedDateChange.bind(this);
 		this.loadGenreOptions = this.loadGenreOptions.bind(this);
@@ -30,7 +30,7 @@ class MovieSearchPane extends Component {
 	loadGenreOptions(input, callback) {
 		if (!this.state.genreOptionsLoaded) {
 			this.setState({ optionsLoaded: true });
-			fetch("http://boxofficementatservice-env.quumv36r5v.us-west-2.elasticbeanstalk.com/genres", {mode: 'cors'})
+			fetch("http://boxofficementatservice-env.quumv36r5v.us-west-2.elasticbeanstalk.com/genres", { mode: 'cors' })
 				.then(response => response.json())
 				.then(data => {
 					let options = data.genres.map(genre => ({
@@ -44,11 +44,11 @@ class MovieSearchPane extends Component {
 				});
 		}
 	}
-	
+
 	handleSearchClick() {
-		this.setState({ 
+		this.setState({
 			title: document.getElementById('title').value,
-			studio: document.getElementById('studio').value,
+			studioId: document.getElementById('studioId').value,
 			releasedDate: this.state.selectedDate,
 			genre: this.state.selectedGenre.value
 		});
@@ -67,35 +67,44 @@ class MovieSearchPane extends Component {
 	}
 
 	render() {
-	
+
 		const genreOptionsStyle = {
-			width: "400px"
+			width: "200px"
 		};
 
 		return (
-			<div style={{height: "500px"}}>
-				Title: <input type="text" id="title" />
-				<br/>
-				Studio: <input type="text" id="studio" />
-				<br/>
-				Genre: 
-				<div style={genreOptionsStyle}><Select id="genre" 
-					options={this.state.genres}
-					value={this.state.selectedGenre}
-					onChange={(option) => this.handleGenreOptionChange(option)}
-					onFocus={this.loadGenreOptions}
-				/>
-				</div>
-				<br/>
-				Release Date: 
-				<DatePicker id="releasedDate" 
-					selected={this.state.selectedDate} 
-					onChange={this.handleReleasedDateChange}/>
-				<br/>
+			<div style={{ height: "750px" }}>
+				<table>
+					<tbody>
+						<tr>
+							<td>Title</td>
+							<td><input type="text" id="title" /></td>
+						</tr>
+						<tr>
+							<td>Studio</td>
+							<td><input type="text" id="studioId" /></td>
+						</tr>
+						<tr>
+							<td>Genre</td>
+							<td><div style={genreOptionsStyle}><Select id="genre"
+								options={this.state.genres}
+								value={this.state.selectedGenre}
+								onChange={(option) => this.handleGenreOptionChange(option)}
+								onFocus={this.loadGenreOptions}
+							/></div></td>
+						</tr>
+						<tr>
+							<td>Release Date</td>
+							<td><DatePicker id="releasedDate"
+								selected={this.state.selectedDate}
+								onChange={this.handleReleasedDateChange} /></td>
+						</tr>
+					</tbody>
+				</table>
 				<button onClick={this.handleSearchClick}>Search</button>
-				<MovieResults 
-					title={this.state.title} studio={this.state.studio}
-					releasedDate={this.state.releasedDate} genre={this.state.genre}/>
+				<MovieResults
+					title={this.state.title} studioId={this.state.studioId}
+					releasedDate={this.state.releasedDate} genre={this.state.genre} />
 			</div>
 		);
 	}
