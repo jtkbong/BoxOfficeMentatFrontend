@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import BarChart from './BarChart'
+import CreditsPane from './CreditsPane'
 
 class MovieResult extends Component {
 
@@ -46,8 +47,8 @@ class MovieResult extends Component {
 
     render() {
         return (
-            <div key="movieStats" style={{ height: "550px" }}>
-            <h4 style={{margin: "15px 0px 10px 0px"}}>{this.state.name}</h4>
+            <div key="movieStats">
+                <h4 style={{ margin: "15px 0px 10px 0px" }}>{this.state.name}</h4>
                 <table>
                     <tbody>
                         <tr>
@@ -83,10 +84,10 @@ class MovieResult extends Component {
                             <td>${this.intToTextAmount(this.state.productionBudget)}</td>
                         </tr>
                         {this.state.weeks.length > 0 &&
-                        <tr>
-                            <td><b>Opening Week</b></td>
-                            <td>${this.intToTextAmount(this.state.weeks[0].gross)}</td>
-                        </tr>
+                            <tr>
+                                <td><b>Opening Week</b></td>
+                                <td>${this.intToTextAmount(this.state.weeks[0].gross)}</td>
+                            </tr>
                         }
                         <tr>
                             <td><b>Weeks in Theaters</b></td>
@@ -95,6 +96,7 @@ class MovieResult extends Component {
                     </tbody>
                 </table>
                 <br />
+                <CreditsPane movieId={this.state.movieId} />
                 <div key="weeksHeader"><b>Weeks for Box Office:</b></div>
                 <BarChart key="barChart" data={this.state.weeks} size={[600, 150]} />
             </div>

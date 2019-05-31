@@ -15,6 +15,7 @@ import PeopleSearchPane from './PeopleSearchPane'
 import TestPage from './TestPage'
 import AboutPage from './AboutPage'
 import CareersPage from './Careers'
+import CreditsPane from './CreditsPane'
 
 const routing = (
     <Router>
@@ -36,6 +37,7 @@ const routing = (
                     <Route exact path="/test" component={TestPage} />
                     <Route exact path="/about" component={AboutPage} />
                     <Route exact path="/unpaidcareers" component={CareersPage} />
+                    <Route exact path="/credits/:movieId" component={CreditsPane} />
                 </div>
             </div>
             <div>
