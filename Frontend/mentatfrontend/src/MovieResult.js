@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BarChart from './BarChart'
+import W2WBoxOfficeBarChart from './W2WBoxOfficeBarChart'
 import CreditsPane from './CreditsPane'
 
 class MovieResult extends Component {
@@ -97,8 +97,7 @@ class MovieResult extends Component {
                 </table>
                 <br />
                 <CreditsPane movieId={this.state.movieId} />
-                <div key="weeksHeader"><b>Weeks for Box Office:</b></div>
-                <BarChart key="barChart" data={this.state.weeks} size={[600, 150]} />
+                <W2WBoxOfficeBarChart key="w2wChart" data={this.state.weeks} size={[600, 150]} />
             </div>
         );
     }
