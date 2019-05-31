@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class CreditsPane extends Component {
 
@@ -35,23 +36,32 @@ class CreditsPane extends Component {
 
     render() {
         const directors = this.state.credits.filter(credit => credit.relationship === "Director");
+        const directorsLength = directors.length;
         const actors = this.state.credits.filter(credit => credit.relationship === "Actor");
+        const actorsLength = actors.length;
         const producers = this.state.credits.filter(credit => credit.relationship === "Producer");
+        const producersLength = producers.length;
         const writers = this.state.credits.filter(credit => credit.relationship === "Writer");
+        const writersLength = writers.length;
 
         return (
             <div key="movieCredits" style={{ margin: "10px 0px 20px 0px" }}>
                 {this.state.credits.length > 0 &&
                     <React.Fragment>
-                        <div key="creditsHeader" style={{marginBottom: "10px"}}><b>Credits</b></div>
+                        <div key="creditsHeader" style={{ marginBottom: "10px" }}><b>Credits</b></div>
                         <table>
                             <tbody>
                                 {directors.length > 0 &&
                                     <tr>
-
                                         <td style={{ width: "65px" }}><b>Directors</b></td>
                                         <td style={{ width: "500px", paddingLeft: "10px" }}>{
-                                            directors.map(credit => credit.name).join(", ")
+                                            directors.map((credit, i) => {
+                                                if (i + 1 === directorsLength) {
+                                                    return <Link key={credit.personId} to={"/person/" + credit.personId}>{credit.name}</Link>
+                                                } else {
+                                                    return <Link key={credit.personId} to={"/person/" + credit.personId}>{credit.name}, </Link>
+                                                }
+                                            })
                                         }</td>
                                     </tr>
                                 }
@@ -59,7 +69,13 @@ class CreditsPane extends Component {
                                     <tr>
                                         <td style={{ width: "65px" }}><b>Actors</b></td>
                                         <td style={{ width: "500px", paddingLeft: "10px" }}>{
-                                            actors.map(credit => credit.name).join(", ")
+                                            actors.map((credit, i) => {
+                                                if (i + 1 === actorsLength) {
+                                                    return <Link key={credit.personId} to={"/person/" + credit.personId}>{credit.name}</Link>
+                                                } else {
+                                                    return <Link key={credit.personId} to={"/person/" + credit.personId}>{credit.name}, </Link>
+                                                }
+                                            })
                                         }</td>
                                     </tr>
                                 }
@@ -67,7 +83,13 @@ class CreditsPane extends Component {
                                     <tr>
                                         <td style={{ width: "65px" }}><b>Producers</b></td>
                                         <td style={{ width: "500px", paddingLeft: "10px" }}>{
-                                            producers.map(credit => credit.name).join(", ")
+                                            producers.map((credit, i) => {
+                                                if (i + 1 === producersLength) {
+                                                    return <Link key={credit.personId} to={"/person/" + credit.personId}>{credit.name}</Link>
+                                                } else {
+                                                    return <Link key={credit.personId} to={"/person/" + credit.personId}>{credit.name}, </Link>
+                                                }
+                                            })
                                         }</td>
                                     </tr>
                                 }
@@ -75,7 +97,13 @@ class CreditsPane extends Component {
                                     <tr>
                                         <td style={{ width: "65px" }}><b>Writers</b></td>
                                         <td style={{ width: "500px", paddingLeft: "10px" }}>{
-                                            writers.map(credit => credit.name).join(", ")
+                                            writers.map((credit, i) => {
+                                                if (i + 1 === writersLength) {
+                                                    return <Link key={credit.personId} to={"/person/" + credit.personId}>{credit.name}</Link>
+                                                } else {
+                                                    return <Link key={credit.personId} to={"/person/" + credit.personId}>{credit.name}, </Link>
+                                                }
+                                            })
                                         }</td>
                                     </tr>
                                 }

@@ -38,7 +38,7 @@ class BoxOfficeMentatNavbar extends React.Component {
                   <MDBNavLink to="#"><MDBIcon fab icon="facebook-f" /></MDBNavLink>
                 </MDBNavItem>
                 <MDBNavItem>
-                  <a class="nav-link Ripple-parent" href="https://www.instagram.com/jbongstuff/">
+                  <a className="nav-link Ripple-parent" href="https://www.instagram.com/jbongstuff/">
                     <MDBIcon fab icon="instagram" />
                   </a>
                 </MDBNavItem>

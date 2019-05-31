@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class PeopleResults extends Component {
 
@@ -19,25 +20,25 @@ class PeopleResults extends Component {
 		});
     }
 
-    getOccupations(isActor, isDirector, isProducer, isScreenWriter) {
+    getOccupations(person) {
         var occupations = [];
-        if (isActor) {
+        if (person.actor === 1) {
             occupations.push("Actor");
         }
 
-        if (isDirector) {
+        if (person.director === 1) {
             occupations.push("Director");
         }
 
-        if (isProducer) {
+        if (person.producer === 1) {
             occupations.push("Producer");
         }
 
-        if (isScreenWriter) {
-            occupations.push("Screen Writer");
+        if (person.screenWriter === 1) {
+            occupations.push("Writer");
         }
 
-        return occupations.join(',');
+        return occupations.join(", ");
     }
 
 	render() {
@@ -52,8 +53,8 @@ class PeopleResults extends Component {
                         </tr>
                         {this.state.people.map(person => 
                         <tr key={person.name}>
-                            <td>{person.name}</td>
-                            <td>{this.getOccupations(person.actor, person.director, person.producer, person.screenWriter)}</td>
+                            <td><Link to={'/person/' + person.id}>{person.name}</Link></td>
+                            <td>{this.getOccupations(person)}</td>
                         </tr>    
                         )}
                     </tbody>

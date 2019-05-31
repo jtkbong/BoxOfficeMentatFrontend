@@ -14,6 +14,7 @@ class MovieResults extends Component {
             movies: [],
             title: props.title,
             studioId: props.studioId,
+            personId: props.personId,
             releasedDate: props.releasedDate,
             genre: props.genre,
             resultsCount: 0
@@ -25,13 +26,15 @@ class MovieResults extends Component {
     }
 
     componentWillReceiveProps(props) {
-        if (props.title !== this.state.title || props.studioId !== this.state.studioId ||
-            props.genre !== this.state.genre || props.releasedDate !== this.state.releasedDate) {
+        if (props.title !== this.state.title || props.studioId !== this.state.studioId || 
+            props.personId !== this.state.personId || props.genre !== this.state.genre || 
+            props.releasedDate !== this.state.releasedDate) {
             this.setState({
                 pageNumber: 0,
                 movies: [],
                 title: props.title,
                 studioId: props.studioId,
+                personId: props.personId,
                 releasedDate: props.releasedDate,
                 genre: props.genre
             }, () => {
@@ -41,13 +44,16 @@ class MovieResults extends Component {
     }
 
     getMovies() {
-        if (this.state.title || this.state.studioId || this.state.genre || this.state.releasedDate) {
+        if (this.state.title || this.state.studioId || this.state.personId || this.state.genre || this.state.releasedDate) {
             var params = [];
             if (this.state.title) {
                 params.push("title=" + this.state.title);
             }
             if (this.state.studioId) {
                 params.push("studio=" + this.state.studioId);
+            }
+            if (this.state.personId) {
+                params.push("person=" + this.state.personId);
             }
             if (this.state.genre) {
                 params.push("genre=" + this.state.genre);
@@ -68,6 +74,8 @@ class MovieResults extends Component {
             fetch(url, { mode: 'cors' })
                 .then(response => response.json())
                 .then(data => {
+                    data.movies.sort(this.compareGross);
+                    data.movies.reverse();
                     this.setState({ movies: data.movies });
                 });
 
@@ -89,6 +97,22 @@ class MovieResults extends Component {
         });
     };
 
+    intToTextAmount(val) {
+        if (val) {
+            return val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').replace('.00', '');
+        }
+    }
+
+    compareGross(a, b) {
+        if (a.domesticGross < b.domesticGross) {
+            return -1;
+        }
+        if (a.domesticGross > b.domesticGross) {
+            return 1;
+        }
+        return 0;
+    }
+
     render() {
 
         const columnStyle = {
@@ -106,7 +130,7 @@ class MovieResults extends Component {
                             <tr>
                                 <th style={columnStyle}>Title</th>
                                 <th style={columnStyle}>Studio</th>
-                                <th style={columnStyle} >Genre</th>
+                                <th style={columnStyle}>Genre</th>
                                 <th style={columnStyle}>Released Date</th>
                                 <th style={columnStyle}>Domestic Gross</th>
                             </tr>
@@ -116,7 +140,7 @@ class MovieResults extends Component {
                                     <td style={columnStyle}>{movie.studio}</td>
                                     <td style={columnStyle}>{movie.genre}</td>
                                     <td style={columnStyle}>{movie.releasedDate}</td>
-                                    <td align='right'>${movie.domesticGross}</td>
+                                    <td align='right'>${this.intToTextAmount(movie.domesticGross)}</td>
                                 </tr>
                             )}
                         </tbody>
