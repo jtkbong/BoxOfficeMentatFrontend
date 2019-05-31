@@ -5,7 +5,7 @@ import { Route, BrowserRouter as Router } from 'react-router-dom'
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import MovieResult from './MovieResult'
-import BoxOfficeMentatNavbar from './Navbar'
+import BoxOfficeMentatNavbar from './BoxOfficeMentatNavbar'
 import SideNavBar from './SideNavBar'
 import FooterPage from './FooterPage';
 import MovieSearchPane from './MovieSearchPane'
