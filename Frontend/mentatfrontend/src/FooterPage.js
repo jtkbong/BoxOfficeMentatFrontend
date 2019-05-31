@@ -14,13 +14,13 @@ const FooterPage = () => {
                 <Link to="/about">Box Office Mentat</Link>
               </li>
               <li className="list-unstyled">
-                <Link to="/jeremybong">Jeremy Bong</Link>
+                <Link to="/jeremybong">The Creator</Link>
               </li>
               <li className="list-unstyled">
                 <a href="https://en.wikipedia.org/wiki/Dune_(novel)">Dune</a>
               </li>
               <li className="list-unstyled">
-                <Link to="/unpaidcareers">Unpaid Careers</Link>
+                <Link to="/helpme">Help Me!</Link>
               </li>
             </ul>
           </MDBCol>

@@ -17,6 +17,7 @@ import TestPage from './TestPage'
 import AboutPage from './AboutPage'
 import CareersPage from './Careers'
 import CreditsPane from './CreditsPane'
+import AboutCreator from './AboutCreator';
 
 const routing = (
     <Router>
@@ -38,7 +39,8 @@ const routing = (
                     <Route exact path="/person/:personId" component={PersonResult} />
                     <Route exact path="/test" component={TestPage} />
                     <Route exact path="/about" component={AboutPage} />
-                    <Route exact path="/unpaidcareers" component={CareersPage} />
+                    <Route exact path="/jeremybong" component={AboutCreator} />
+                    <Route exact path="/helpme" component={CareersPage} />
                     <Route exact path="/credits/:movieId" component={CreditsPane} />
                 </div>
             </div>
