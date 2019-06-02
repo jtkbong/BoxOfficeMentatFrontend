@@ -9,12 +9,14 @@ class BoxOfficeComparer extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            movieIds: [],
             movie1Id: "captainamerica",
             movie2Id: "marvel14b",
             movie1: null,
             movie2: null,
             size: [1200, 500]
         };
+        this.addMovieIdToList = this.addMovieIdToList.bind(this);
     }
 
     componentDidMount() {
@@ -35,6 +37,17 @@ class BoxOfficeComparer extends Component {
                     movie2: data
                 });
             });
+    }
+
+    addMovieIdToList() {
+        const movieId = document.getElementById('movieId').value;
+        const li = document.createElement('li');
+        li.innerHTML = movieId;
+        document.getElementById('movieIdList').appendChild(li);
+        this.setState(prevState => {
+            prevState.movieIds.push(movieId);
+            return {movieIds: prevState.movieIds}
+        });
     }
 
     render() {
@@ -67,7 +80,18 @@ class BoxOfficeComparer extends Component {
                         </svg>{this.state.movie1.name} vs
 <svg width="15" height="15">
                                 <rect width="15" height="15" style={{ fill: "FABFFF" }} />
-                            </svg>{this.state.movie2.name}</div>
+                            </svg>{this.state.movie2.name}
+                        </div>
+                        <table>
+                            <tr><td>Movie ID</td>
+                            <td><input type="text" id="movieId" /></td>
+                            <td><button onClick={this.addMovieIdToList}>Add</button></td>
+                            </tr>
+                        </table>
+                        <ul id="movieIdList">
+
+                        </ul>
+                        
 
                         <svg key="barChartGraphic" width={this.state.size[0] + 100} height={this.state.size[1] + 100}>
                             <g transform="translate(80, 20)">

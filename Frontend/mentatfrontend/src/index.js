@@ -6,7 +6,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import MovieResult from './MovieResult'
 import BoxOfficeMentatNavbar from './BoxOfficeMentatNavbar'
-import SideNavBar from './SideNavBar'
+import SideBar from './SideBar'
 import FooterPage from './FooterPage';
 import MovieSearchPane from './MovieSearchPane'
 import StudioResults from './StudioResults'
@@ -26,11 +26,11 @@ const routing = (
             <div>
                 <BoxOfficeMentatNavbar />
             </div>
-            <div style={{ overflow: "hidden", position: "relative", width: "100%" }}>
-                <div >
-                    <SideNavBar/>
+            <div id="container">
+                <div id="sidebar">
+                    <SideBar/>
                 </div>
-                <div style={{ position: "relative", left: "150px" }}>
+                <div id="content">
                     <Route exact path="/" component={App} />
                     <Route exact path="/studio/:studioId" component={StudioResult} />
                     <Route exact path="/studios" component={StudioResults} />
@@ -46,9 +46,9 @@ const routing = (
                     <Route exact path="/comparer" component={BoxOfficeComparer} />
                 </div>
             </div>
-            <div>
-			  	<FooterPage />
-		  	</div>
+            <footer id="footer">
+			<FooterPage />
+            </footer>
         </div>
     </Router>
 )

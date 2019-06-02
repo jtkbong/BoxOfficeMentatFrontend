@@ -17,7 +17,7 @@ class PeopleSearchPane extends Component {
 
 	render() {
 		return (
-			<div style={{ height: "750px" }}>
+			<div style={{ height: "100%" }}>
 				<table>
 					<tbody>
 						<tr>
@@ -26,7 +26,7 @@ class PeopleSearchPane extends Component {
 						</tr>
 					</tbody>
 				</table>
-				<button onClick={this.handleClick}>Search</button>
+				<button className="searchButtonStyle" onClick={this.handleClick}>Search</button>
 				<PeopleResults name={this.state.name} />
 			</div>
 		);

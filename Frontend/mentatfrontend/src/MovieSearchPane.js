@@ -74,7 +74,7 @@ class MovieSearchPane extends Component {
 		};
 
 		return (
-			<div style={{ height: "750px" }}>
+			<div style={{ height: "100%" }}>
 				<table>
 					<tbody>
 						<tr>
@@ -102,7 +102,8 @@ class MovieSearchPane extends Component {
 						</tr>
 					</tbody>
 				</table>
-				<button onClick={this.handleSearchClick}>Search</button>
+				<button className="searchButtonStyle" onClick={this.handleSearchClick}>Search</button>
+				<br />
 				<MovieResults
 					title={this.state.title} studioId={this.state.studioId}
 					releasedDate={this.state.releasedDate} genre={this.state.genre} />

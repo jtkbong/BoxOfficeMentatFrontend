@@ -103,11 +103,10 @@ class MovieResults extends Component {
             "padding": "2px 10px 2px 10px"
         }
 
-        const finalPageCount = Math.ceil(this.state.resultsCount / MovieResults.resultsPerPage);
-
-        return (
-            <div id="react-paginate">
-                {this.state.movies.length > 0 &&
+        if (this.state.movies.length > 0) {
+            const finalPageCount = Math.ceil(this.state.resultsCount / MovieResults.resultsPerPage);
+            return (
+                <div id="react-paginate">
                     <table>
                         <tbody>
                             <tr>
@@ -128,9 +127,7 @@ class MovieResults extends Component {
                             )}
                         </tbody>
                     </table>
-                }
-                <br />
-                {this.state.movies.length > 0 &&
+                    <br />
                     <ReactPaginate
                         previousLabel={'<'}
                         nextLabel={'>'}
@@ -141,9 +138,14 @@ class MovieResults extends Component {
                         onPageChange={this.handlePageClick}
                         activeClassName={'paginate-active'}
                     />
-                }
-            </div>
-        );
+                </div>
+            );
+        }
+        else {
+            return (
+                <div style={{ height: "550px" }} />
+            );
+        }
     }
 }
 
