@@ -13,7 +13,8 @@ body {
 #sidebar {
   padding-top: 15px;
   padding-left: 23px;
-  width: 12%;
+  width: 11%;
+  min-width: 100px;
   height: relative;
   background: #4545c9;
   float: left;
