@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactPaginate from 'react-paginate';
 import { Link } from 'react-router-dom';
 import './css/pagination.css';
+import Util from './Util';
 
 class MovieResults extends Component {
 
@@ -26,8 +27,8 @@ class MovieResults extends Component {
     }
 
     componentWillReceiveProps(props) {
-        if (props.title !== this.state.title || props.studioId !== this.state.studioId || 
-            props.personId !== this.state.personId || props.genre !== this.state.genre || 
+        if (props.title !== this.state.title || props.studioId !== this.state.studioId ||
+            props.personId !== this.state.personId || props.genre !== this.state.genre ||
             props.releasedDate !== this.state.releasedDate) {
             this.setState({
                 pageNumber: 0,
@@ -74,8 +75,6 @@ class MovieResults extends Component {
             fetch(url, { mode: 'cors' })
                 .then(response => response.json())
                 .then(data => {
-                    data.movies.sort(this.compareGross);
-                    data.movies.reverse();
                     this.setState({ movies: data.movies });
                 });
 
@@ -96,22 +95,6 @@ class MovieResults extends Component {
             this.getMovies();
         });
     };
-
-    intToTextAmount(val) {
-        if (val) {
-            return val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').replace('.00', '');
-        }
-    }
-
-    compareGross(a, b) {
-        if (a.domesticGross < b.domesticGross) {
-            return -1;
-        }
-        if (a.domesticGross > b.domesticGross) {
-            return 1;
-        }
-        return 0;
-    }
 
     render() {
 
@@ -140,7 +123,7 @@ class MovieResults extends Component {
                                     <td style={columnStyle}>{movie.studio}</td>
                                     <td style={columnStyle}>{movie.genre}</td>
                                     <td style={columnStyle}>{movie.releasedDate}</td>
-                                    <td align='right'>${this.intToTextAmount(movie.domesticGross)}</td>
+                                    <td align='right'>{Util.intToDollarsText(movie.domesticGross)}</td>
                                 </tr>
                             )}
                         </tbody>

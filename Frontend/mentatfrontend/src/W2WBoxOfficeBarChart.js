@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { scaleLinear } from 'd3-scale';
 import * as d3 from 'd3';
 import { Axis, axisPropsFromTickScale, LEFT, BOTTOM } from 'react-d3-axis';
+import Util from './Util';
 
 class W2WBoxOfficeBarChart extends Component {
 
@@ -18,12 +19,6 @@ class W2WBoxOfficeBarChart extends Component {
             size: props.size,
             data: props.data
         });
-    }
-
-    intToTextAmount(val) {
-        if (val) {
-            return val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').replace('.00', '');
-        }
     }
 
     render() {
@@ -68,7 +63,7 @@ class W2WBoxOfficeBarChart extends Component {
                                                     fontSize="10"
                                                     transform={"rotate(-30 " + widthPerBar * (week.weekNumber - 1) + " " + (this.state.size[1] - yScale(week.gross)) + ")"}
                                                 >
-                                                    ${this.intToTextAmount(week.gross)}
+                                                    {Util.intToDollarsText(week.gross)}
                                                 </text>
                                             </React.Fragment>
                                         )

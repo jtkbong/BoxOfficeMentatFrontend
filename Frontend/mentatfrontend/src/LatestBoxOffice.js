@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Util from './Util';
 
 class LatestBoxOffice extends Component {
 
@@ -19,28 +20,12 @@ class LatestBoxOffice extends Component {
         fetch(url, { mode: 'cors' })
             .then(response => response.json())
             .then(data => {
-                data.records.sort(this.compareGross);
+                data.records.sort(Util.compareGross);
                 data.records.reverse();
                 this.setState({
                     records: data.records
                 });
             });
-    }
-
-    compareGross(a, b) {
-        if (a.gross < b.gross) {
-            return -1;
-        }
-        if (a.gross > b.gross) {
-            return 1;
-        }
-        return 0;
-    }
-
-    intToTextAmount(val) {
-        if (val) {
-            return val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').replace('.00', '');
-        }
     }
 
     render() {
@@ -49,21 +34,21 @@ class LatestBoxOffice extends Component {
                 {this.state.records.length > 0 &&
                     <React.Fragment>
                         <div key="latestHeader" style={{ marginBottom: "10px" }}>
-                        <b>
-                            <h4>Lastest Box Office</h4>
-                            <h5>{this.state.records[0].startDate} to {this.state.records[0].endDate}</h5></b>
+                            <b>
+                                <h4>Lastest Box Office</h4>
+                                <h5>{this.state.records[0].startDate} to {this.state.records[0].endDate}</h5></b>
                         </div>
                         <table>
                             <tbody>
                                 <tr>
                                     <th>Movie</th>
-                                    <th style={{paddingLeft: "20px"}}>Gross</th>
-                                    <th style={{paddingLeft: "20px"}}>Theater Count</th>
+                                    <th style={{ paddingLeft: "20px" }}>Gross</th>
+                                    <th style={{ paddingLeft: "20px" }}>Theater Count</th>
                                 </tr>
                                 {this.state.records.map(record =>
                                     <tr key={record.movieId + "-latest"}>
                                         <td><Link to={'/movie/' + record.movieId}>{record.movieName}</Link></td>
-                                        <td align="right">${this.intToTextAmount(record.gross)}</td>
+                                        <td align="right">{Util.intToDollarsText(record.gross)}</td>
                                         <td align="right">{record.theaterCount}</td>
                                     </tr>
                                 )}

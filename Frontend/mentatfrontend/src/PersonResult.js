@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MovieResults from './MovieResults';
+import Util from './Util';
 
 class PersonResult extends Component {
 
@@ -27,22 +28,6 @@ class PersonResult extends Component {
                     person: data
                 });
             });
-    }
-
-    compareGross(a, b) {
-        if (a.gross < b.gross) {
-            return -1;
-        }
-        if (a.gross > b.gross) {
-            return 1;
-        }
-        return 0;
-    }
-
-    intToTextAmount(val) {
-        if (val) {
-            return val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').replace('.00', '');
-        }
     }
 
     getOccupations(person) {

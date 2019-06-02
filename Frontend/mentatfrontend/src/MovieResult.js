@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import W2WBoxOfficeBarChart from './W2WBoxOfficeBarChart'
 import CreditsPane from './CreditsPane'
+import Util from './Util';
 
 class MovieResult extends Component {
 
@@ -39,12 +40,6 @@ class MovieResult extends Component {
             });
     }
 
-    intToTextAmount(val) {
-        if (val) {
-            return val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').replace('.00', '');
-        }
-    }
-
     render() {
         return (
             <div key="movieStats">
@@ -57,7 +52,7 @@ class MovieResult extends Component {
                         </tr>
                         <tr>
                             <td><b>Domestic Gross</b></td>
-                            <td>${this.intToTextAmount(this.state.domesticGross)}</td>
+                            <td>{   Util.intToDollarsText(this.state.domesticGross)}</td>
                         </tr>
                         <tr>
                             <td><b>Distributor</b></td>
@@ -81,12 +76,12 @@ class MovieResult extends Component {
                         </tr>
                         <tr>
                             <td><b>Production Budget</b></td>
-                            <td>${this.intToTextAmount(this.state.productionBudget)}</td>
+                            <td>{Util.intToDollarsText(this.state.productionBudget)}</td>
                         </tr>
                         {this.state.weeks.length > 0 &&
                             <tr>
                                 <td><b>Opening Week</b></td>
-                                <td>${this.intToTextAmount(this.state.weeks[0].gross)}</td>
+                                <td>{Util.intToDollarsText(this.state.weeks[0].gross)}</td>
                             </tr>
                         }
                         <tr>

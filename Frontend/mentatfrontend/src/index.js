@@ -18,6 +18,7 @@ import AboutPage from './AboutPage'
 import CareersPage from './Careers'
 import CreditsPane from './CreditsPane'
 import AboutCreator from './AboutCreator';
+import BoxOfficeComparer from './BoxOfficeComparer';
 
 const routing = (
     <Router>
@@ -42,6 +43,7 @@ const routing = (
                     <Route exact path="/jeremybong" component={AboutCreator} />
                     <Route exact path="/helpme" component={CareersPage} />
                     <Route exact path="/credits/:movieId" component={CreditsPane} />
+                    <Route exact path="/comparer" component={BoxOfficeComparer} />
                 </div>
             </div>
             <div>
