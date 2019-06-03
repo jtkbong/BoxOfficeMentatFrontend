@@ -12,12 +12,20 @@ class BoxOfficeComparer extends Component {
             movies: {},
             size: [800, 400]
         };
+        this.clearMovies = this.clearMovies.bind(this);
         this.addMovieIdToList = this.addMovieIdToList.bind(this);
+    }
+
+    clearMovies() {
+        this.setState({
+            movies: {}
+        });
     }
 
     addMovieIdToList() {
         const movieId = document.getElementById('movieId').value;
         this.addMovie(movieId);
+        document.getElementById('movieId').value = "";
     }
 
     addMovie(movieId) {
@@ -94,20 +102,25 @@ class BoxOfficeComparer extends Component {
                         </tr>
                     </tbody>
                 </table>
-                <ul id="movieIdList">
-                    {movieEntries.map(
-                        ([movieId, movie]) => {
-                            movieColorCount += 1;
-                            return (
-                                <li key={movie.id} style={{ listStyle: "none" }}>
-                                    <svg width={15} height={15} style={{ marginRight: "10px" }}>
-                                        <rect width={15} height={15} style={{ fill: this.getColor(movieColorCount) }} />
-                                    </svg>
-                                    {movie.name}
-                                </li>);
-                        }
-                    )}
-                </ul>
+                <div>
+                    <ul id="movieIdList">
+                        {movieEntries.map(
+                            ([movieId, movie]) => {
+                                movieColorCount += 1;
+                                return (
+                                    <li key={movie.id} style={{ listStyle: "none" }}>
+                                        <svg width={15} height={15} style={{ marginRight: "10px" }}>
+                                            <rect width={15} height={15} style={{ fill: this.getColor(movieColorCount) }} />
+                                        </svg>
+                                        {movie.name}
+                                    </li>);
+                            }
+                        )}
+                    </ul>
+                    {movieEntries.length > 0 &&
+                        <button onClick={this.clearMovies}>Clear Data</button>
+                    }
+                </div>
                 <React.Fragment>
                     <svg key="barChartGraphic" width={this.state.size[0] + 100} height={this.state.size[1] + 100}>
                         <g transform="translate(80, 20)">
@@ -140,12 +153,12 @@ class BoxOfficeComparer extends Component {
                         </g>
                         <g transform="translate(80, 20)">
                             {movieEntries.length > 0 &&
-                            <Axis key="yAxis" {...axisPropsFromTickScale(yScaleReverse, 4)} style={{ orient: LEFT }} />
+                                <Axis key="yAxis" {...axisPropsFromTickScale(yScaleReverse, 4)} style={{ orient: LEFT }} />
                             }
                         </g>
                         <g transform={"translate(" + (80 + widthPerWeek / 2) + ", " + (20 + this.state.size[1]) + ")"}>
                             {movieEntries.length > 0 &&
-                            <Axis key="xAxis" {...axisPropsFromTickScale(xScale, maxWeekCount + 1)} style={{ orient: BOTTOM }} />
+                                <Axis key="xAxis" {...axisPropsFromTickScale(xScale, maxWeekCount + 1)} style={{ orient: BOTTOM }} />
                             }
                         </g>
                     </svg>

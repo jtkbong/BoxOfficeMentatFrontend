@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import MovieResults from './MovieResults';
-import Util from './Util';
 
 class PersonResult extends Component {
 
