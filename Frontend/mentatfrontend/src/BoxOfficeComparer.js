@@ -3,17 +3,22 @@ import { scaleLinear } from 'd3-scale';
 import * as d3 from 'd3';
 import { Axis, axisPropsFromTickScale, LEFT, BOTTOM } from 'react-d3-axis';
 import Util from './Util';
+import AsyncSelect from 'react-select/lib/Async';
+
 
 class BoxOfficeComparer extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            selectedMovieId: null,
             movies: {},
             size: [800, 400]
         };
         this.clearMovies = this.clearMovies.bind(this);
         this.addMovieIdToList = this.addMovieIdToList.bind(this);
+        this.handleMovieSelectionChange = this.handleMovieSelectionChange.bind(this);
+        this.loadMovieOptions = this.loadMovieOptions.bind(this);
     }
 
     clearMovies() {
@@ -22,10 +27,14 @@ class BoxOfficeComparer extends Component {
         });
     }
 
+    handleMovieSelectionChange(option) {
+        this.setState({ selectedMovieId: option.value });
+    }
+
     addMovieIdToList() {
-        const movieId = document.getElementById('movieId').value;
+        const movieId = this.state.selectedMovieId;
         this.addMovie(movieId);
-        document.getElementById('movieId').value = "";
+        document.getElementById('movieId').selectedValue = null;
     }
 
     addMovie(movieId) {
@@ -46,6 +55,38 @@ class BoxOfficeComparer extends Component {
                     });
                 }
             });
+    }
+
+    loadMovieOptions = (inputValue) => {
+        return this.test(inputValue);
+    }
+
+    async test(inputValue) {
+        var params = [];
+        params.push("title=" + inputValue);
+        params.push("maxResults=20");
+        params.push("offset=0");
+
+        const url = process.env.REACT_APP_API_URL + "movies?" + params.join('&');
+
+        const movieOptions = await fetch(url, { mode: 'cors' })
+            .then(response => response.json())
+            .then(data => {
+                let movieOptions = [];
+                data.movies.map(movie =>
+                    movieOptions.push({
+                        label: movie.name,
+                        value: movie.id
+                    })
+                );
+                this.setState({
+                    movieOptions: movieOptions
+                })
+                return movieOptions;
+            });
+
+        const results = await movieOptions;
+        return results;
     }
 
     getColor(num) {
@@ -72,6 +113,8 @@ class BoxOfficeComparer extends Component {
 
                     const movieMaxWeekGross = d3.max(movie.weeks, week => week.gross);
                     maxWeekGross = Math.max(maxWeekGross, movieMaxWeekGross);
+
+                    return null;
                 })
         }
 
@@ -96,8 +139,10 @@ class BoxOfficeComparer extends Component {
                 <table>
                     <tbody>
                         <tr>
-                            <td>Movie ID</td>
-                            <td><input type="text" id="movieId" /></td>
+                            <td>Movie Name</td>
+                            <td width="350px" style={{paddingLeft: "20px"}}>
+                                <AsyncSelect id="movieId" loadOptions={this.loadMovieOptions} onChange={this.handleMovieSelectionChange} />
+                            </td>
                             <td><button className="searchButtonStyle" onClick={this.addMovieIdToList}>Add</button></td>
                         </tr>
                     </tbody>
