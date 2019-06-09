@@ -23,6 +23,7 @@ class BoxOfficeComparer extends Component {
 
     clearMovies() {
         this.setState({
+            selectedMovieId: null,
             movies: {}
         });
     }
@@ -34,7 +35,7 @@ class BoxOfficeComparer extends Component {
     addMovieIdToList() {
         const movieId = this.state.selectedMovieId;
         this.addMovie(movieId);
-        document.getElementById('movieId').selectedValue = null;
+        document.getElementById('movieId').value = '';
     }
 
     addMovie(movieId) {
@@ -58,10 +59,10 @@ class BoxOfficeComparer extends Component {
     }
 
     loadMovieOptions = (inputValue) => {
-        return this.test(inputValue);
+        return this.getMovieOptions(inputValue);
     }
 
-    async test(inputValue) {
+    async getMovieOptions(inputValue) {
         var params = [];
         params.push("title=" + inputValue);
         params.push("maxResults=20");
@@ -140,8 +141,9 @@ class BoxOfficeComparer extends Component {
                     <tbody>
                         <tr>
                             <td>Movie Name</td>
-                            <td width="350px" style={{paddingLeft: "20px"}}>
-                                <AsyncSelect id="movieId" loadOptions={this.loadMovieOptions} onChange={this.handleMovieSelectionChange} />
+                            <td width="350px" style={{ paddingLeft: "20px" }}>
+                                <AsyncSelect id="movieId" loadOptions={this.loadMovieOptions}
+                                    onChange={this.handleMovieSelectionChange} />
                             </td>
                             <td><button className="searchButtonStyle" onClick={this.addMovieIdToList}>Add</button></td>
                         </tr>
@@ -155,7 +157,8 @@ class BoxOfficeComparer extends Component {
                                 return (
                                     <li key={movie.id} style={{ listStyle: "none" }}>
                                         <svg width={15} height={15} style={{ marginRight: "10px" }}>
-                                            <rect width={15} height={15} style={{ fill: this.getColor(movieColorCount) }} />
+                                            <rect width={15} height={15}
+                                                style={{ fill: this.getColor(movieColorCount) }} />
                                         </svg>
                                         {movie.name}
                                     </li>);
@@ -196,16 +199,20 @@ class BoxOfficeComparer extends Component {
                                 })
                             }
                         </g>
-                        <g transform="translate(80, 20)">
-                            {movieEntries.length > 0 &&
-                                <Axis key="yAxis" {...axisPropsFromTickScale(yScaleReverse, 4)} style={{ orient: LEFT }} />
-                            }
-                        </g>
-                        <g transform={"translate(" + (80 + widthPerWeek / 2) + ", " + (20 + this.state.size[1]) + ")"}>
-                            {movieEntries.length > 0 &&
-                                <Axis key="xAxis" {...axisPropsFromTickScale(xScale, maxWeekCount + 1)} style={{ orient: BOTTOM }} />
-                            }
-                        </g>
+                        {movieEntries.length > 0 &&
+                            <React.Fragment>
+                                <g transform="translate(80, 20)">
+                                    {movieEntries.length > 0 &&
+                                        <Axis key="yAxis" {...axisPropsFromTickScale(yScaleReverse, 4)} style={{ orient: LEFT }} />
+                                    }
+                                </g>
+                                <g transform={"translate(" + (80 + widthPerWeek / 2) + ", " + (20 + this.state.size[1]) + ")"}>
+                                    {movieEntries.length > 0 &&
+                                        <Axis key="xAxis" {...axisPropsFromTickScale(xScale, maxWeekCount + 1)} style={{ orient: BOTTOM }} />
+                                    }
+                                </g>
+                            </React.Fragment>
+                        }
                     </svg>
                 </React.Fragment>
             </div>
