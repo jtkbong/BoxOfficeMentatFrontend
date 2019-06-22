@@ -35,7 +35,7 @@ class LatestBoxOffice extends Component {
                     <React.Fragment>
                         <div key="latestHeader" style={{ marginBottom: "10px" }}>
                             <b>
-                                <h4>Lastest Box Office</h4>
+                                <h4>Latest Box Office</h4>
                                 <h5>{this.state.records[0].startDate} to {this.state.records[0].endDate}</h5></b>
                         </div>
                         <table>
