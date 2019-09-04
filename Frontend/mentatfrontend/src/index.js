@@ -20,6 +20,7 @@ import CreditsPane from './CreditsPane'
 import AboutCreator from './AboutCreator';
 import BoxOfficeComparer from './BoxOfficeComparer';
 import Reviews from './Reviews';
+import Review from './Review';
 
 const routing = (
     <Router>
@@ -46,6 +47,7 @@ const routing = (
                     <Route exact path="/credits/:movieId" component={CreditsPane} />
                     <Route exact path="/comparer" component={BoxOfficeComparer} />
                     <Route exact path="/reviews" component={Reviews} />
+                    <Route exact path="/review/:reviewId" component={Review} />
                 </div>
             </div>
             <footer id="footer">

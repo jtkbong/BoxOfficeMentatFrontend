@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import W2WBoxOfficeBarChart from './W2WBoxOfficeBarChart'
 import CreditsPane from './CreditsPane'
 import Util from './Util';
+import { Link } from 'react-router-dom';
 
 class MovieResult extends Component {
 
@@ -35,6 +36,7 @@ class MovieResult extends Component {
                     runTime: data.runTime,
                     mpaaRating: data.mpaaRating,
                     productionBudget: data.productionBudget,
+                    hasReview: data.hasReview,
                     weeks: filteredWeeks
                 });
             });
@@ -44,6 +46,11 @@ class MovieResult extends Component {
         return (
             <div key="movieStats">
                 <h4 style={{ margin: "15px 0px 10px 0px" }}>{this.state.name}</h4>
+                {this.state.hasReview &&
+                    <div style={{ marginBottom: "10px" }}>
+                        <h7><Link to={'../review/' + this.state.movieId}>Reviewed by JBong</Link></h7>
+                    </div>
+                }
                 <table>
                     <tbody>
                         <tr>
